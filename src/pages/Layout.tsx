@@ -1,8 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-type Props = {}
 
-const Layout = (props: Props) => {
+const Layout = () => {
   return (
     <div>
       <div>Layout</div>
