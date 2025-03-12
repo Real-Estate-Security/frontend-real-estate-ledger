@@ -1,26 +1,20 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { LoginForm } from "@/components/auth/LoginForm";
 import { useAuthStore } from "@/store/authStore";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 export default function Login() {
   const { login } = useAuthStore();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  const handleLogin = async (email: string, password: string) => {
     await login(email, password);
-    navigate("/");
+    navigate("/frontend-real-estate-ledger/");
   };
 
   return (
@@ -32,50 +26,7 @@ export default function Login() {
             Enter your email and password to login to your account
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-                <a
-                  href="/forgot-password"
-                  className="text-sm text-primary hover:underline"
-                >
-                  Forgot password?
-                </a>
-              </div>
-              <Input
-                id="password"
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col space-y-4">
-          <Button className="w-full" onClick={handleLogin}>
-            Login
-          </Button>
-          <div className="text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <a href="/register" className="text-primary hover:underline">
-              Sign up
-            </a>
-          </div>
-        </CardFooter>
+        <LoginForm onSubmit={handleLogin} />
       </Card>
     </div>
   );

@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import axios, { InternalAxiosRequestConfig } from "axios";
 
 const API_BASE_URL = "http://localhost:3000/api"; // Update with your backend URL
 
