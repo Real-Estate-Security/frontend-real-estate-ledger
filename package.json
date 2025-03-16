@@ -4,23 +4,34 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "clean": "rm -rf dist && rm -rf node_modules",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "refresh-api-types": "npx swagger2openapi http://localhost:8080/swagger/doc.json -o openapi.json && npx openapi-typescript openapi.json -o src/api/types/api-types.ts --extract-enums"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-label": "^2.1.2",
+    "@radix-ui/react-popover": "^1.1.6",
+    "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.2",
-    "@tailwindcss/vite": "^4.0.14",
+    "@tailwindcss/vite": "^4.0.13",
+    "axios": "^1.8.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.482.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "date-fns": "^3.6.0",
+    "lucide-react": "^0.479.0",
+    "react": "18.0.0",
+    "react-day-picker": "^8.10.1",
+    "react-dom": "18.0.0",
     "react-router-dom": "^7.2.0",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss": "^4.0.13",
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

@@ -1,50 +1,89 @@
-# React + TypeScript + Vite
+# Real Estate Ledger Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the frontend application for the Real Estate Ledger project, a comprehensive platform for managing real estate property transactions and investments with ease and security.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js 18.x or higher
+- npm 8.x or higher
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Installation
 
-- Configure the top-level `parserOptions` property like this:
+Clone the repository and install dependencies:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone https://github.com/Real-Estate-Security/frontend-real-estate-ledger.git
+cd frontend-real-estate-ledger
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Available Scripts
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+In the project directory, you can run:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### `npm run dev`
+
+Runs the app in development mode.\
+Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+
+The page will reload if you make edits.
+
+### `npm run build`
+
+Builds the app for production to the `dist` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+### `npm run lint`
+
+Runs the linter to check for code quality issues.
+
+### `npm run preview`
+
+Locally preview the production build after running `npm run build`.
+
+### `npm run refresh-api-types`
+
+**Important**: Run this command to pull the latest API schemas and generate TypeScript types from the backend.
+
+This ensures your frontend code is in sync with the latest backend API changes. You should run this command:
+
+- After pulling new changes from the repository
+- When the backend API changes
+- Before starting development on a new feature
+
+## Project Structure
+
+- `src/`: Source files
+  - `components/`: Reusable UI components
+  - `pages/`: Page components
+  - `api/`: API related files, including generated types
+  - `store/`: State management
+  - `utils/`: Utility functions
+  - `lib/`: Library code
+  - `components/ui/`: Shared UI components
+
+## Tech Stack
+
+- React 18
+- TypeScript
+- Vite
+- TailwindCSS
+- shadcn/ui components
+
+## Best Practices
+
+- Run `npm run refresh-api-types` regularly to stay in sync with the backend
+- Follow the established patterns for components and state management
+- Use the available UI components from the `components/ui` directory
+- Keep components modular and reusable
+- Follow TypeScript best practices and maintain type safety
+
+## Deployment
+
+The application is configured to be deployed to a path: `/frontend-real-estate-ledger/`.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
