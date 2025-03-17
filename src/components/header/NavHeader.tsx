@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Home, Menu, User, Building } from "lucide-react";
+import { Home, Menu, User, Building, House } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 
 export default function NavHeader() {
@@ -28,6 +28,17 @@ export default function NavHeader() {
             <Building className="h-6 w-6 text-white" />
             <span className="font-bold text-xl hidden sm:inline-block text-white">
               Real Estate Ledger
+            </span>
+          </Link>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/frontend-real-estate-ledger/properties"
+            className="flex items-center gap-2"
+          >
+            <House className="h-6 w-6 text-white" />
+            <span className="font-bold text-xl hidden sm:inline-block text-white">
+              View Listings
             </span>
           </Link>
         </div>
