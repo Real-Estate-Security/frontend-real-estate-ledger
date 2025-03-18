@@ -10,7 +10,7 @@ import {
 //   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { Mail, Lock, UserPlus, } from "lucide-react";
+import { Mail, UserPlus, Bed, Bath, MapPinHouse, Pencil } from "lucide-react";
 // import {
 //   Popover,
 //   PopoverContent,
@@ -123,6 +123,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
                 className="bg-gray-50 focus:bg-white transition-colors"
               />
             </div>
+            </div>
             <div className="space-y-2">
                 <Label htmlFor="userEmail" className="font-medium">
                 User Email
@@ -141,8 +142,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
                     className="pl-10 bg-gray-50 focus:bg-white transition-colors"
                 />
             </div>
-          </div>
-          </div>
+          
         </div>
           {/* Agent First and Last Name */}
           <div className="grid grid-cols-2 gap-4">
@@ -156,7 +156,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
                 </div>
                 <Input
                   id="agentfirstName"
-                  placeholder="John"
+                  placeholder="First Name"
                   required
                   value={agentfirstName}
                   onChange={(e) => setAgentFirstName(e.target.value)}
@@ -177,6 +177,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
                 className="bg-gray-50 focus:bg-white transition-colors"
               />
             </div>
+            </div>
             <div className="space-y-2">
                 <Label htmlFor="agentEmail" className="font-medium">
                 Agent Email
@@ -195,17 +196,17 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
                     className="pl-10 bg-gray-50 focus:bg-white transition-colors"
                 />
             </div>
-          </div>
+            </div>
 
+         <div className="space-y-5">
           {/* Property Address */}
-          <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="address" className="font-medium">
                 Address of Property
               </Label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-                  <UserPlus className="h-5 w-5" />
+                  <MapPinHouse className="h-5 w-5" />
                 </div>
                 <Input
                   id="address"
@@ -216,9 +217,8 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
                   className="pl-10 bg-gray-50 focus:bg-white transition-colors"
                 />
               </div>
-            </div>
-        </div>
-
+              </div>
+    
           {/* Bedrooms */}
           <div className="space-y-2">
             <Label htmlFor="bedrooms" className="font-medium">
@@ -226,7 +226,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
             </Label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-                <Mail className="h-5 w-5" />
+                <Bed className="h-5 w-5" />
               </div>
               <Input
                 id="bedrooms"
@@ -237,7 +237,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
                 className="pl-10 bg-gray-50 focus:bg-white transition-colors"
               />
             </div>
-          </div>
+            </div>
 
           {/* Bathrooms */}
           <div className="space-y-2">
@@ -246,7 +246,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
             </Label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-                <Lock className="h-5 w-5" />
+                <Bath className="h-5 w-5" />
               </div>
               <Input
                 id="bathrooms"
@@ -258,6 +258,8 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
               />
             </div>
           </div>
+          </div>
+
 
           {/* Description */}
           <div className="space-y-2">
@@ -266,9 +268,9 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
             </Label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400 z-10">
-                <Lock className="h-5 w-5" />
+                <Pencil className="h-5 w-5" />
               </div>
-            <textarea>
+            <textarea id="description" placeholder="Please enter a short description of the property you are listing.">
               <Input
                 id="description"
                 placeholder="Please enter a short description of the property you are listing."
@@ -280,8 +282,8 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
             </textarea>
             </div>
           </div>
-        </div>
-        <div>
+        
+       
           {/* Error message */}
           {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
         </div>
