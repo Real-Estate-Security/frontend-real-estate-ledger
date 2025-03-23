@@ -1,60 +1,81 @@
-import { useEffect, useState } from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { PropertyDetailForm } from "./PropertyDetailForm";
+import { ListingDetailForm } from "./ListDetailForm";
 
-interface Listing {
-  id: number;
-  property_id: number;
-  agent_id: number;
-  price: number;
-  listing_status: string;
-  listing_date: string;
-  description?: string;
-  accepted_bid_id?: number;
+interface BiddingFormProps {
+  onSubmit?: (formAssetData: {
+    formPropertyId: string;
+  }) => void;
 }
 
-export default function ListingsPage() {
-  const [listings, setListings] = useState<Listing[]>([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState("");
+export function BiddingForm({ }: BiddingFormProps) {
+  const [formPropertyId, setFormPropertyId] = useState("");
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [isAssetDetailVisible, setIsAssetDetailVisible] = useState(false); // State to control visibility
 
-  useEffect(() => {
-    const fetchListings = async () => {
-    //   try {
-        const response = await fetch("/api/listings");
-        if (!response.ok) throw new Error("Failed to fetch listings");
-        const data = await response.json();
-        setListings(data);
-    //   } catch (error) {
-    //     setError("Error fetching listings");
-    //   } finally {
-    //     setLoading(false);
-      
-    };
-    fetchListings();
-  }, []);
-
-//   if (loading) return <p>Loading listings...</p>;
-//   if (error) return <p className="text-red-500">{error}</p>;
+  const handleGetAssetById = async () => {
+    console.log("handleGetAssetById-> Asset ID:", formPropertyId);
+    try {
+      setIsLoading(true);
+      //await onSubmit({ formPropertyId: formPropertyId });
+      setIsAssetDetailVisible(true); // Show the asset detail form after successful submission      
+    } catch (error) {
+      console.error("Bidding submission error:", error);
+      setError("Failed to submit bidding. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Available Listings</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {listings.map((listing) => (
-          <Card key={listing.id} className="p-4 border rounded-lg shadow-md">
-            <CardContent>
-              <p className="text-lg font-semibold">Price: ${listing.price.toFixed(2)}</p>
-              <p>Status: {listing.listing_status}</p>
-              <p>Listed on: {new Date(listing.listing_date).toLocaleDateString()}</p>
-              {listing.description && <p>Description: {listing.description}</p>}
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full">View Details</Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
-    </div>
+    <>
+      <CardContent className="pt-5">
+        <div className="space-y-5">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="formPropertyIdLabel" className="font-medium">
+                Property ID
+              </Label>
+                <Input
+                  id="formPropertyIdInput"
+                  placeholder="property1"
+                  required
+                  value={formPropertyId}
+                  onChange={(e) => setFormPropertyId(e.target.value)}
+                  className="pl-10 bg-gray-50 focus:bg-white transition-colors"
+                />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="formRetrievAssetByIDLabel" className="font-medium">  
+                Retrieve the property detail
+              </Label>
+              <Button
+                id="formRetrievAssetByIDButton"
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                onClick={handleGetAssetById}
+                disabled={ isLoading || !formPropertyId }
+              >                
+                {isLoading ? "Retrieving Asset Detail..." : "Retrieve Asset Detail"}
+            </Button>
+            </div>            
+          </div>
+          {/* Error message */}
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+        </div>
+        {/* Conditionally render the asset detail form */}
+        {isAssetDetailVisible && (
+          <div id="assetDetailFormId">
+            <PropertyDetailForm />
+            <ListingDetailForm />
+          </div>
+        )}
+      </CardContent>
+    </>
   );
 }
