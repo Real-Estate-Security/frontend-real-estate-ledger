@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { CardFooter, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
 //   Select,
 //   SelectContent,
@@ -84,6 +85,12 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  //special handler for Description with Textarea
+
+  const handleDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value); 
   };
 
   return (
@@ -270,16 +277,13 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400 z-10">
                 <Pencil className="h-5 w-5" />
               </div>
-            <textarea id="description" placeholder="Please enter a short description of the property you are listing.">
-              <Input
-                id="description"
+            <Textarea
+                id="description" 
                 placeholder="Please enter a short description of the property you are listing."
-                required
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                  value={description}
+                onChange={handleDescription}
                 className="pl-10 bg-gray-50 focus:bg-white transition-colors"
-                />
-            </textarea>
+              />
             </div>
           </div>
         
