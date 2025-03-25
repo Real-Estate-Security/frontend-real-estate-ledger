@@ -5,14 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { PropertyDetailForm } from "./PropertyDetailForm";
 import { ListingDetailForm } from "./ListDetailForm";
-
-interface BiddingFormProps {
-  onSubmit?: (formAssetData: {
-    formPropertyId: string;
-  }) => void;
-}
-
-export function BiddingForm({ }: BiddingFormProps) {
+export function BiddingForm() {
   const [formPropertyId, setFormPropertyId] = useState("");
   
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +16,6 @@ export function BiddingForm({ }: BiddingFormProps) {
     console.log("handleGetAssetById-> Asset ID:", formPropertyId);
     try {
       setIsLoading(true);
-      //await onSubmit({ formPropertyId: formPropertyId });
       setIsAssetDetailVisible(true); // Show the asset detail form after successful submission      
     } catch (error) {
       console.error("Bidding submission error:", error);

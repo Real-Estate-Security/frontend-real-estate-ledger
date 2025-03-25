@@ -2,19 +2,8 @@ import { CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
-interface PropertyDetailFormProps {
-  onSubmit?: (formAssetData: {
-    formPropertyOwner: string;
-    formPropertyAddress: string;
-    formPropertyCity: string;
-    formPropertyState: string;
-    formPropertyZipCode: number;
-    formPropertyNumOfBedrooms: number;
-    formPropertyNumOfBathrooms: number;
-  }) => void;
-}
 
-export function PropertyDetailForm({ }: PropertyDetailFormProps) {
+export function PropertyDetailForm() {
   const [formPropertyOwner] = useState("John Robert");
   const [formPropertyAddress] = useState("326 Main Street");
   const [formPropertyCity] = useState("Austin");
@@ -23,29 +12,6 @@ export function PropertyDetailForm({ }: PropertyDetailFormProps) {
   const [formPropertyNumOfBedrooms] = useState("5");
   const [formPropertyNumOfBathrooms] = useState("3");
   
-  //const [isLoading, setIsLoading] = useState(false);
-/*  const [error, setError] = useState("");
-  
-
-  const handleSubmit = async () => {
-    if (!onSubmit) return;
-
-    try {
-      setIsLoading(true);
-    await onSubmit({
-        formPropertyAddress: formAssetPropertyAddress,
-        formPropertyCity: formPropertyCity,
-        formPropertyOwner: formPropertyOwner,
-        formPropertyState: formPropertyState
-      });
-    } catch (error) {
-      console.error("Bidding submission error:", error);
-      setError("Failed to submit bidding. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-*/
   return (
     <>
       <CardContent className="pt-5">
