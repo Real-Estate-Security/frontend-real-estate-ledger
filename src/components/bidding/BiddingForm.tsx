@@ -5,23 +5,32 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { PropertyDetailForm } from "./PropertyDetailForm";
 import { ListingDetailForm } from "./ListDetailForm";
+import { usePropertyStore } from "@/store/propertyStore";
+import { useListingStore } from "@/store/listingStore";
+
 export function BiddingForm() {
   const [formPropertyId, setFormPropertyId] = useState("");
-  
+  const { getPropertyByIDAPI, propertyFromAPI} = usePropertyStore();  
+  const {getListingByPropertyIDAPI, listingFromAPI} = useListingStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  
   const [isAssetDetailVisible, setIsAssetDetailVisible] = useState(false); // State to control visibility
 
   const handleGetAssetById = async () => {
     console.log("handleGetAssetById-> Asset ID:", formPropertyId);
     try {
       setIsLoading(true);
+      await getPropertyByIDAPI(Number(formPropertyId), "test123");
+      await getListingByPropertyIDAPI(Number(formPropertyId), "test123");
       setIsAssetDetailVisible(true); // Show the asset detail form after successful submission      
     } catch (error) {
       console.error("Bidding submission error:", error);
       setError("Failed to submit bidding. Please try again.");
     } finally {
       setIsLoading(false);
+      console.log("BiddingForm:handleGetAssetById: propertyFromAPI=" + JSON.stringify(propertyFromAPI));      
+      console.log("BiddingForm:handleGetAssetById: listingFromAPI=" + JSON.stringify(listingFromAPI));           
     }
   };
 
@@ -63,8 +72,8 @@ export function BiddingForm() {
         {/* Conditionally render the asset detail form */}
         {isAssetDetailVisible && (
           <div id="assetDetailFormId">
-            <PropertyDetailForm />
-            <ListingDetailForm />
+            {propertyFromAPI && <PropertyDetailForm propertyFromAPI={propertyFromAPI} />}
+            {listingFromAPI && <ListingDetailForm listingFromAPI={listingFromAPI}/>}
           </div>
         )}
       </CardContent>

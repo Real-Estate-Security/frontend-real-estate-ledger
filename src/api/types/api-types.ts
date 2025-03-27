@@ -82,6 +82,130 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/listing/getListingByPropertyID": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * get listing by property id
+         * @description get listing by property id
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description get listig by property id */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.getListingByIDRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.listingResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/property/getPropertyByID": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * get property by id
+         * @description get property by id
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description get property by id */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.getPropertyByIDRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.propertyResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/user/login": {
         parameters: {
             query?: never;
@@ -277,6 +401,24 @@ export interface components {
             role: "user" | "agent";
             username: string;
         };
+        "server.getListingByIDRequest": {
+            PropertyID: number;
+            Username: string;
+        };
+        "server.getPropertyByIDRequest": {
+            PropertyID: number;
+            Username: string;
+        };
+        "server.listingResponse": {
+            AcceptedBidID: number;
+            AgentID: number;
+            Description: string;
+            ID: number;
+            ListingDate: string;
+            ListingStatus: string;
+            Price: string;
+            PropertyID: number;
+        };
         "server.loginUserRequest": {
             password: string;
             username: string;
@@ -284,6 +426,16 @@ export interface components {
         "server.loginUserResponse": {
             access_token?: string;
             user?: components["schemas"]["server.userResponse"];
+        };
+        "server.propertyResponse": {
+            Address: string;
+            City: string;
+            ID: number;
+            NumOfBathrooms: number;
+            NumOfBedrooms: number;
+            Owner: number;
+            State: string;
+            ZipCode: number;
         };
         "server.userMeResponse": {
             user?: components["schemas"]["server.userResponse"];

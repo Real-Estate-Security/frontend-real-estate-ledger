@@ -3,6 +3,7 @@ import { CardFooter, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { ListingFromAPI } from "@/store/listingStore";
 
 interface ListingDetailFormProps {
   onSubmit?: (formAssetData: {
@@ -16,22 +17,18 @@ interface ListingDetailFormProps {
     formListingAcceptedBidId: number;
   }) => void;
 }
+interface ListingDetailFormProps {
+  listingFromAPI: ListingFromAPI; 
+}
 
-export function ListingDetailForm({ onSubmit }: ListingDetailFormProps) {
-  const [formListingId] = useState("101");
-  const [formListingAgentId] = useState("201");
-  const [formListingPrice] = useState("500,000");
-  const [formListingStatus] = useState("Active");
-  const [formListingDate] = useState("Mar 1 2025");
-  const [formListingDescription] = useState("Great location and schools");
-  const [formListingAcceptedBidId] = useState("99");
+export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
+
   const [formMyBiddingPrice, setFormMyBiddingPrice] = useState("");
   
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async () => {
-    if (!onSubmit) return;
 
     try {
       setIsLoading(true);
@@ -58,37 +55,37 @@ export function ListingDetailForm({ onSubmit }: ListingDetailFormProps) {
         <div className="space-y-5">
           <div className="space-y-2">
               <Label htmlFor="formListingIdLabel" className="font-medium">
-                Listing Id: {formListingId}
+                Listing Id: {listingFromAPI.Id}
               </Label>
             </div>          
             <div className="space-y-2">
                 <Label htmlFor="formListingAgentIdLabel" className="font-medium">
-                Agency Id: {formListingAgentId}
+                Agency Id: {listingFromAPI.AgentId}
                 </Label>
             </div>
             <div className="space-y-2">
                 <Label htmlFor="formListingPriceLabel" className="font-medium">
-                Price: {formListingPrice}
+                Price: {listingFromAPI.Price}
                 </Label>
             </div>
             <div className="space-y-2">
                 <Label htmlFor="formListingStatusLabel" className="font-medium">
-                Status: {formListingStatus}
+                Status: {listingFromAPI.ListingStatus}
                 </Label>
             </div>
             <div className="space-y-2">
                 <Label htmlFor="formListingDateLabel" className="font-medium">
-                Start Date: {formListingDate}
+                Start Date: {listingFromAPI.ListingDate}
                 </Label>
             </div> 
             <div className="space-y-2">
                 <Label htmlFor="formListingDescriptionLabel" className="font-medium">
-                Description: {formListingDescription}
+                Description: {listingFromAPI.Description}
                 </Label>
             </div>    
             <div className="space-y-2">
                 <Label htmlFor="formListingAcceptedBidIdLabel" className="font-medium">
-                Accepted Bit Id: {formListingAcceptedBidId}
+                Accepted Bit Id: {listingFromAPI.AcceptedBidId}
                 </Label>
             </div>
             <div className="space-y-2">

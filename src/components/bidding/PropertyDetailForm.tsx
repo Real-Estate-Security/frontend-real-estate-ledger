@@ -1,16 +1,12 @@
 import { CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { PropertyFromAPI } from "@/store/propertyStore";
 
+interface PropertyDetailFormProps {
+  propertyFromAPI: PropertyFromAPI; 
+}
 
-export function PropertyDetailForm() {
-  const [formPropertyOwner] = useState("John Robert");
-  const [formPropertyAddress] = useState("326 Main Street");
-  const [formPropertyCity] = useState("Austin");
-  const [formPropertyState] = useState("Texas");
-  const [formPropertyZipCode] = useState("78681");
-  const [formPropertyNumOfBedrooms] = useState("5");
-  const [formPropertyNumOfBathrooms] = useState("3");
+export function PropertyDetailForm({ propertyFromAPI }: PropertyDetailFormProps) {
   
   return (
     <>
@@ -21,37 +17,37 @@ export function PropertyDetailForm() {
         <div className="space-y-5">
           <div className="space-y-2">
               <Label htmlFor="formPropertyOwnerLabel" className="font-medium">
-                Property Owner: {formPropertyOwner}
+                Property Owner: {propertyFromAPI.OwnerId}
               </Label>
             </div>          
             <div className="space-y-2">
                 <Label htmlFor="formPropertyAddressLabel" className="font-medium">
-                Address: {formPropertyAddress}
+                Address: {propertyFromAPI.Address}
                 </Label>
             </div>
             <div className="space-y-2">
                 <Label htmlFor="formPropertyCityLabel" className="font-medium">
-                City: {formPropertyCity}
+                City: {propertyFromAPI.City}
                 </Label>
             </div>
             <div className="space-y-2">
                 <Label htmlFor="formPropertyStateLabel" className="font-medium">
-                State: {formPropertyState}
+                State: {propertyFromAPI.State}
                 </Label>
             </div>
             <div className="space-y-2">
                 <Label htmlFor="formPropertyZipCodeLabel" className="font-medium">
-                Zip Code: {formPropertyZipCode}
+                Zip Code: {propertyFromAPI.ZipCode}
                 </Label>
             </div> 
             <div className="space-y-2">
                 <Label htmlFor="formPropertyNumOfBedroomsLabel" className="font-medium">
-                Number of Bedroom: {formPropertyNumOfBedrooms}
+                Number of Bedroom: {propertyFromAPI.NumOfBedrooms}
                 </Label>
             </div>      
             <div className="space-y-2">
                 <Label htmlFor="formPropertyNumOfBathroomsLabel" className="font-medium">
-                Number of Bathroom: {formPropertyNumOfBathrooms}
+                Number of Bathroom: {propertyFromAPI.NumOfBathrooms}
                 </Label>
             </div>                               
         </div>
