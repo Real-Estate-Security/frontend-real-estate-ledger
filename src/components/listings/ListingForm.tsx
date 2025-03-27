@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 import { Mail, UserPlus, Bed, Bath, MapPinHouse, Pencil } from "lucide-react";
+import { StringToBoolean } from "class-variance-authority/types";
 // import {
 //   Popover,
 //   PopoverContent,
@@ -26,7 +27,11 @@ interface ListingFormProps {
     agentfirstName: string;
     agentlastName: string;
     agentEmail: string;
+    listingPrice: number;
     address: string;
+    city: string;
+    state: string;
+    zip: number;
     description: string;
     bathrooms: number;
     bedrooms: number;
@@ -42,7 +47,11 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
   const [agentlastName, setAgentLastName] = useState("");
   const [agentEmail, setAgentEmail] = useState("");
   const [description, setDescription] = useState("");
+  const [listingPrice, setListingPrice] = useState<number>(0);
   const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState<number>(0);
   const [bathrooms, setBathrooms] = useState<number>(0);
   const [bedrooms, setBedrooms] = useState<number>(0);
   
@@ -74,7 +83,11 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
         agentfirstName,
         agentlastName,
         agentEmail,
+        listingPrice,
         address,
+        city,
+        state,
+        zip,
         description,
         bathrooms,
         bedrooms
@@ -205,6 +218,26 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
             </div>
             </div>
 
+          {/* Listing Price */}
+          <div className="space-y-2">
+            <Label htmlFor="listingPrice" className="font-medium">
+              Price of Listing
+            </Label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                <Bed className="h-5 w-5" />
+              </div>
+              <Input
+                id="listingPrice"
+                type="number"
+                required
+                value={listingPrice}
+                onChange={(e) => setListingPrice(Number(e.target.value))}
+                className="pl-10 bg-gray-50 focus:bg-white transition-colors"
+              />
+            </div>
+            </div>
+
          <div className="space-y-5">
           {/* Property Address */}
             <div className="space-y-2">
@@ -224,8 +257,65 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
                   className="pl-10 bg-gray-50 focus:bg-white transition-colors"
                 />
               </div>
+          </div>
+
+          <div className="space-y-5">
+          {/* Property City */}
+            <div className="space-y-2">
+              <Label htmlFor="city" className="font-medium">
+                City
+              </Label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                  <MapPinHouse className="h-5 w-5" />
+                </div>
+                <Input
+                  id="city"
+                  placeholder="Enter city"
+                  required
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  className="pl-10 bg-gray-50 focus:bg-white transition-colors"
+                />
               </div>
-    
+          </div>
+
+          {/* Property Zip Code */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="state" className="font-medium">
+                State
+              </Label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                  <UserPlus className="h-5 w-5" />
+                </div>
+                <Input
+                  id="state"
+                  placeholder="Enter State"
+                  required
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  className="pl-10 bg-gray-50 focus:bg-white transition-colors"
+                />
+              </div>
+            </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="zip" className="font-medium">
+                Zip Code
+              </Label>
+              <Input
+                id="zip"
+                placeholder="Zipcode"
+                required
+                value={zip}
+                onChange={(e) => setZip(Number(e.target.value))}
+                className="bg-gray-50 focus:bg-white transition-colors"
+              />
+            </div>
+          </div>
+
           {/* Bedrooms */}
           <div className="space-y-2">
             <Label htmlFor="bedrooms" className="font-medium">

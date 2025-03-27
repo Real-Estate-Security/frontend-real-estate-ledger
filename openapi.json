@@ -322,6 +322,46 @@
                         "type": "string"
                     }
                 }
+            },
+            "server.createListingRequest": {
+                "type": "object",
+                "required": [
+                    "dob",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "password",
+                    "role",
+                    "username"
+                ],
+                "properties": {
+                    "dob": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 6
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "user",
+                            "agent"
+                        ]
+                    },
+                    "username": {
+                        "type": "string"
+                    }
+                }
             }
         }
     }
