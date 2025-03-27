@@ -18,7 +18,11 @@ import {
         agentfirstName: string;
         agentlastName: string;
         agentEmail: string;
+        listingPrice: number;
         address: string;
+        city: string;
+        state: string;
+        zip: number;
         description: string;
         bathrooms: number;
         bedrooms: number;
