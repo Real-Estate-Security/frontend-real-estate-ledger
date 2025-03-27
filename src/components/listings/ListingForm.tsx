@@ -11,8 +11,8 @@ import {
 //   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { Mail, UserPlus, Bed, Bath, MapPinHouse, Pencil } from "lucide-react";
-import { StringToBoolean } from "class-variance-authority/types";
+import { Mail, UserPlus, Bed, Bath, MapPinHouse, Pencil, DollarSign } from "lucide-react";
+// import { StringToBoolean } from "class-variance-authority/types";
 // import {
 //   Popover,
 //   PopoverContent,
@@ -225,7 +225,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
             </Label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-                <Bed className="h-5 w-5" />
+                <DollarSign className="h-5 w-5" />
               </div>
               <Input
                 id="listingPrice"
@@ -288,7 +288,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
               </Label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-                  <UserPlus className="h-5 w-5" />
+                  <MapPinHouse className="h-5 w-5" />
                 </div>
                 <Input
                   id="state"
@@ -300,11 +300,14 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
                 />
               </div>
             </div>
-            </div>
+            
             <div className="space-y-2">
               <Label htmlFor="zip" className="font-medium">
                 Zip Code
               </Label>
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                  <MapPinHouse className="h-5 w-5" />
+              </div>
               <Input
                 id="zip"
                 placeholder="Zipcode"
@@ -315,7 +318,8 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
               />
             </div>
           </div>
-
+          </div>
+          
           {/* Bedrooms */}
           <div className="space-y-2">
             <Label htmlFor="bedrooms" className="font-medium">
@@ -405,7 +409,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
         <div className="text-center text-sm text-gray-600">
           Want to place a bid on an existing listing?{" "}
           <a
-            href="/frontend-real-estate-ledger/login"
+            href="/frontend-real-estate-ledger/listings"
             className="text-primary font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-sm"
             tabIndex={0}
           >
