@@ -16,15 +16,21 @@ const ViewListings = () => {
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
              <span className="text-primary">Current Listings </span>
           </h1>
-          <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Agent? 
-            <Link to="/frontend-real-estate-ledger/properties">
-                <Button size="lg" 
-                  onClick={handleNewListing}>
-                  Create a Listing.
+          <div className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+            View current listings, research property details, and submit bids on available properties.
+            <div className="mt-10 flex justify-center gap-4">
+              <Link to="/frontend-real-estate-ledger/properties">
+                <Button size="lg" className="cursor-pointer" onClick={handleNewListing}>
+                  Create a Listing
                 </Button>
               </Link>
-          </p>
+              <Link to="/frontend-real-estate-ledger/bids">
+                <Button variant="outline" size="lg" className="cursor-pointer">
+                  Place a Bid
+                </Button>
+              </Link>
+            </div>
+         </div>
         </div>
       </section>
     </div>

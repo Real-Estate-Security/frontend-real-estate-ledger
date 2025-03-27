@@ -305,9 +305,6 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
               <Label htmlFor="zip" className="font-medium">
                 Zip Code
               </Label>
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-                  <MapPinHouse className="h-5 w-5" />
-              </div>
               <Input
                 id="zip"
                 placeholder="Zipcode"
