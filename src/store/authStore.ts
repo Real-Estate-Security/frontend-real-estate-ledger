@@ -10,7 +10,7 @@ interface User {
   email: string;
   first_name: string;
   last_name: string;
-  role: "user" | "agent";
+  role: "user" | "agent" | "admin";
   dob: string;
 }
 
@@ -24,7 +24,7 @@ interface AuthState {
     email: string,
     password: string,
     username: string,
-    role: "user" | "agent",
+    role: "user" | "agent" | "admin",
     dateOfBirth: Date
   ) => Promise<void>;
   logout: () => void;

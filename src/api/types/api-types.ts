@@ -4,7 +4,145 @@
  */
 
 export interface paths {
-    "/example/helloworld": {
+    "/agent/accept-representation/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Accept representation request
+         * @description Allows an agent to accept a representation request.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Representation ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Representation request accepted successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Invalid request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Representation not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/decline-representation/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Decline representation request
+         * @description Allows an agent to decline a representation request.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Representation ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Representation request declined successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Invalid request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Representation not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/representations": {
         parameters: {
             query?: never;
             header?: never;
@@ -12,8 +150,150 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * HelloWorld example
-         * @description HelloWorld example
+         * List representations
+         * @description Fetches all representations for the authenticated user, whether they are an agent or a regular user.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description Limit (default: 10) */
+                    limit?: number;
+                    /** @description Offset (default: 0) */
+                    offset?: number;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of representations */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.RepresentationsWithNullableTime"][];
+                    };
+                };
+                /** @description Invalid request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/request-representation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Request representation
+         * @description Allows an agent to request representation for a user.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Request Representation Request */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.requestAgentRepresentationRequest"];
+                };
+            };
+            responses: {
+                /** @description Representation request submitted successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Invalid request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Client not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/health": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Health Check
+         * @description Returns the health status of the server
          */
         get: {
             parameters: {
@@ -43,7 +323,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/health": {
+    "/hello-world": {
         parameters: {
             query?: never;
             header?: never;
@@ -51,8 +331,8 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Health Check
-         * @description Returns the health status of the server
+         * HelloWorld example
+         * @description HelloWorld example
          */
         get: {
             parameters: {
@@ -267,6 +547,22 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        "server.NullableTime": {
+            time?: string;
+            valid?: boolean;
+        };
+        "server.RepresentationsWithNullableTime": {
+            agent_id?: number;
+            created_at?: string;
+            end_date?: components["schemas"]["server.NullableTime"];
+            id?: number;
+            is_active?: boolean;
+            signed_date?: components["schemas"]["server.NullableTime"];
+            start_date?: string;
+            status?: string;
+            updated_at?: string;
+            user_id?: number;
+        };
         "server.createUserRequest": {
             dob: string;
             email: string;
@@ -284,6 +580,11 @@ export interface components {
         "server.loginUserResponse": {
             access_token?: string;
             user?: components["schemas"]["server.userResponse"];
+        };
+        "server.requestAgentRepresentationRequest": {
+            client_username: string;
+            end_date: string;
+            start_date: string;
         };
         "server.userMeResponse": {
             user?: components["schemas"]["server.userResponse"];
