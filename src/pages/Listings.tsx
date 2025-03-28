@@ -64,31 +64,31 @@ const ViewListings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background, space-y-8">
       {/* View Listings Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
              <span className="text-primary">Current Listings </span>
           </h1>
+          </div>
           <div className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
             View current listings, research property details, and submit bids on available properties.
-            <div className="mt-10 flex justify-center gap-4">
+          </div>
+            <div className="mt-10 mb-10 flex justify-center gap-4">
               <Link to="/frontend-real-estate-ledger/properties">
-                <Button size="lg" className="cursor-pointer" onClick={handleNewListing}>
+                <Button size="lg" className="cursor-pointer, text-2xl" onClick={handleNewListing}>
                   Create a Listing
                 </Button>
               </Link>
               <Link to="/frontend-real-estate-ledger/bids">
-                <Button variant="outline" size="lg" className="cursor-pointer">
+                <Button variant="outline" size="lg" className="cursor-pointer, text-2xl">
                   Place a Bid
                 </Button>
               </Link>
             </div>
-         </div>
-        </div>
 
-  <Table className="padding-top: 500px, text-2xl">
+  <Table className="text-2xl">
   <TableCaption>A list of all current listings.</TableCaption>
   <TableHeader>
     <TableRow>
@@ -123,7 +123,7 @@ const ViewListings = () => {
       <TableCell colSpan={1}>$145,000,000</TableCell>
       <TableCell colSpan={1}>5</TableCell>
       <TableCell colSpan={1}>3</TableCell>
-      <TableCell colSpan={1}>University in an unbeatable location.</TableCell>
+      <TableCell colSpan={1}>University in an unbeatable location. Texas A&M is located in the heart of College Station, home to the Texas Aggies.</TableCell>
     </TableRow>
   </TableFooter>
   </Table>
