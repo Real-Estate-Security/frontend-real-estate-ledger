@@ -88,7 +88,7 @@ const ViewListings = () => {
               </Link>
             </div>
 
-  <Table className="text-2xl">
+  <Table className="max-h-screen, overflow-scroll, text-2xl">
   <TableCaption>A list of all current listings.</TableCaption>
   <TableHeader>
     <TableRow>
