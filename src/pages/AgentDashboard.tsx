@@ -22,7 +22,7 @@ export default function AgentDashboard() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to load representations",
+        description: `Failed to load representations: ${error}`,
         variant: "destructive",
       });
     }
@@ -43,7 +43,7 @@ export default function AgentDashboard() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to accept representation request",
+        description: `Failed to accept representation request: ${error}`,
         variant: "destructive",
       });
     }
@@ -60,7 +60,7 @@ export default function AgentDashboard() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to decline representation request",
+        description: `Failed to decline representation request: ${error}`,
         variant: "destructive",
       });
     }

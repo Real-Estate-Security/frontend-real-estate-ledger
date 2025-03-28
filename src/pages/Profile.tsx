@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
 import { useAuthStore } from "@/store/authStore";
 
 export default function Profile() {
   const { user } = useAuthStore();
-  const { toast } = useToast();
 
   if (!user) {
     return (

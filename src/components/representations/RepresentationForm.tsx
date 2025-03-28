@@ -11,7 +11,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { requestRepresentation } from "@/services/agentService";
 
 interface RepresentationFormProps {
@@ -88,7 +87,7 @@ export function RepresentationForm({ onSuccess }: RepresentationFormProps) {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to send representation request",
+        description: `Failed to send representation request: ${error}`,
         variant: "destructive",
       });
     } finally {
