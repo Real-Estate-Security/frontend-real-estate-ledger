@@ -88,18 +88,18 @@ const ViewListings = () => {
          </div>
         </div>
 
-  <Table>
+  <Table className="padding-top: 500px, text-2xl">
   <TableCaption>A list of all current listings.</TableCaption>
   <TableHeader>
     <TableRow>
       <TableHead className="w-[100px]">Agent First Name</TableHead>
+      <TableHead className="w-[100px]">Agent Last Name</TableHead>
+      <TableHead className="w-[200px]">Agent Email</TableHead>
       <TableHead>Address</TableHead>
-      <TableHead>Status</TableHead>
-      <TableHead>Owner First Name</TableHead>
-      <TableHead>Owner Last Name</TableHead>
-      <TableHead className="text-right">Price</TableHead>
-      <TableHead>Bedrooms</TableHead>
-      <TableHead>Bathrooms</TableHead>
+      <TableHead className="w-[100px]">Status</TableHead>
+      <TableHead>Price</TableHead>
+      <TableHead className="w-[100px]">Bedrooms</TableHead>
+      <TableHead className="w-[100px]">Bathrooms</TableHead>
       <TableHead>Details</TableHead>
     </TableRow>
   </TableHeader>
@@ -115,8 +115,15 @@ const ViewListings = () => {
   </TableBody>
   <TableFooter>
     <TableRow>
-      <TableCell colSpan={3}>Total</TableCell>
-      <TableCell className="text-right">$2,500.00</TableCell>
+      <TableCell colSpan={1}>John</TableCell>
+      <TableCell colSpan={1}>Doe</TableCell>
+      <TableCell colSpan={1}>johndoe@mail.com</TableCell>
+      <TableCell colSpan={1}>400 Bizzell Street College Station, TX 77843</TableCell>
+      <TableCell colSpan={1}>Available</TableCell>
+      <TableCell colSpan={1}>$145,000,000</TableCell>
+      <TableCell colSpan={1}>5</TableCell>
+      <TableCell colSpan={1}>3</TableCell>
+      <TableCell colSpan={1}>University in an unbeatable location.</TableCell>
     </TableRow>
   </TableFooter>
   </Table>
