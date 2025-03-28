@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Home, Menu, User, Building, House } from "lucide-react";
+import { Home, Menu, User, Building, House, Users } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 
 export default function NavHeader() {
@@ -65,6 +65,16 @@ export default function NavHeader() {
               >
                 Transactions
               </Link>
+              {(user.role === "agent" ||
+                user.role === "admin" ||
+                user.role == "user") && (
+                <Link
+                  to="/frontend-real-estate-ledger/agent-dashboard"
+                  className="text-sm font-medium transition-colors hover:text-blue-400 text-white"
+                >
+                  Agent Dashboard
+                </Link>
+              )}
               <div className="flex items-center gap-4">
                 <Link
                   to="/frontend-real-estate-ledger/profile"
@@ -77,7 +87,7 @@ export default function NavHeader() {
                   variant="destructive"
                   size="sm"
                   onClick={handleLogout}
-                  className="cursor-pointer bg-gray-600 hover:bg-red-700"
+                  className="cursor-pointer bg-red-600 hover:bg-red-700"
                 >
                   Logout
                 </Button>
@@ -88,13 +98,13 @@ export default function NavHeader() {
               <Link to="/frontend-real-estate-ledger/login">
                 <Button
                   variant="outline"
-                  className="cursor-pointer text-black border-white hover:bg-blue-400 hover:text-white hover:border-black"
+                  className="cursor-pointer text-black bg-white border-white hover:bg-gray-100"
                 >
                   Login
                 </Button>
               </Link>
               <Link to="/frontend-real-estate-ledger/register">
-                <Button className="cursor-pointer bg-gray-400 hover:bg-blue-500">
+                <Button className="cursor-pointer bg-blue-600 hover:bg-blue-700">
                   Sign Up
                 </Button>
               </Link>
@@ -144,6 +154,16 @@ export default function NavHeader() {
                     </span>
                     Transactions
                   </Link>
+                  {user.role === "agent" && (
+                    <Link
+                      to="/frontend-real-estate-ledger/agent-dashboard"
+                      className="flex items-center gap-2 text-lg font-medium text-white hover:text-blue-400"
+                      onClick={closeSheet}
+                    >
+                      <Users className="h-5 w-5" />
+                      Agent Dashboard
+                    </Link>
+                  )}
                   <div className="flex flex-col gap-2 mt-4">
                     <Link
                       to="/frontend-real-estate-ledger/profile"
@@ -154,8 +174,8 @@ export default function NavHeader() {
                       Profile
                     </Link>
                     <Button
-                      variant="outline"
-                      className="mt-2 cursor-pointer bg-gray-600 hover:bg-blue-500"
+                      variant="destructive"
+                      className="mt-2 cursor-pointer bg-red-600 hover:bg-red-700"
                       onClick={handleLogout}
                     >
                       Logout
@@ -170,7 +190,7 @@ export default function NavHeader() {
                   >
                     <Button
                       variant="outline"
-                      className="w-full cursor-pointer text-white border-white hover:bg-blue-400 hover:text-white"
+                      className="w-full cursor-pointer text-black bg-white border-white hover:bg-gray-100"
                     >
                       Login
                     </Button>
@@ -179,7 +199,7 @@ export default function NavHeader() {
                     to="/frontend-real-estate-ledger/register"
                     onClick={closeSheet}
                   >
-                    <Button className="w-full cursor-pointer bg-gray-400 hover:bg-blue-500">
+                    <Button className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700">
                       Sign Up
                     </Button>
                   </Link>
