@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/header/Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Bidding from "./pages/Bidding";
 import Register from "./pages/Register";
 import { Toaster } from "./components/ui/toaster";
 import AgentDashboard from "./pages/AgentDashboard";
@@ -17,6 +18,7 @@ function App() {
           path="/frontend-real-estate-ledger/register"
           element={<Register />}
         />
+          <Route path="/frontend-real-estate-ledger/bidding" element={<Bidding />} />
         <Route
           path="/frontend-real-estate-ledger/agent-dashboard"
           element={<AgentDashboard />}
