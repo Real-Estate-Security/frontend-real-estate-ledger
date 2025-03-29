@@ -18,7 +18,7 @@ function App() {
           path="/frontend-real-estate-ledger/register"
           element={<Register />}
         />
-          <Route path="bidding" element={<Bidding />} />
+          <Route path="/frontend-real-estate-ledger/bidding" element={<Bidding />} />
         <Route
           path="/frontend-real-estate-ledger/agent-dashboard"
           element={<AgentDashboard />}
