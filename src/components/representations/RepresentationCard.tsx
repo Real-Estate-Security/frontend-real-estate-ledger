@@ -36,6 +36,7 @@ export function RepresentationCard({
     try {
       return format(parseISO(dateString), "MMM d, yyyy");
     } catch (error) {
+      console.error(error);
       return "Invalid date";
     }
   };
@@ -49,6 +50,7 @@ export function RepresentationCard({
     try {
       return format(parseISO(dateString), "MMM d, yyyy");
     } catch (error) {
+      console.error(error);
       return "Invalid date";
     }
   };
