@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -24,6 +24,14 @@ export function RepresentationForm({ onSuccess }: RepresentationFormProps) {
   const [endDate, setEndDate] = useState<Date>();
   const [isLoading, setIsLoading] = useState(false);
 
+  // Helper function to create a date at noon UTC
+  const createDateAtNoon = (dateString: string): Date => {
+    const date = parseISO(dateString);
+    // Set to noon to avoid timezone issues
+    date.setHours(12, 0, 0, 0);
+    return date;
+  };
+
   const validateDates = () => {
     if (!startDate) {
       toast({
@@ -35,7 +43,7 @@ export function RepresentationForm({ onSuccess }: RepresentationFormProps) {
     }
 
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    today.setHours(12, 0, 0, 0);
 
     if (startDate < today) {
       toast({
@@ -129,10 +137,11 @@ export function RepresentationForm({ onSuccess }: RepresentationFormProps) {
                 required
                 value={startDate ? format(startDate, "yyyy-MM-dd") : ""}
                 onChange={(e) => {
-                  const newDate = e.target.value
-                    ? new Date(e.target.value)
-                    : undefined;
-                  setStartDate(newDate);
+                  if (e.target.value) {
+                    setStartDate(createDateAtNoon(e.target.value));
+                  } else {
+                    setStartDate(undefined);
+                  }
                 }}
                 className="pl-10 bg-gray-50 border-gray-200 text-gray-900 focus:bg-white focus:border-blue-500 transition-colors"
                 min={format(new Date(), "yyyy-MM-dd")}
@@ -153,11 +162,19 @@ export function RepresentationForm({ onSuccess }: RepresentationFormProps) {
                     <Calendar
                       mode="single"
                       selected={startDate}
-                      onSelect={setStartDate}
+                      onSelect={(date) => {
+                        if (date) {
+                          // Ensure the date is set to noon to avoid timezone issues
+                          date.setHours(12, 0, 0, 0);
+                          setStartDate(date);
+                        } else {
+                          setStartDate(undefined);
+                        }
+                      }}
                       initialFocus
                       disabled={(date) => {
                         const today = new Date();
-                        today.setHours(0, 0, 0, 0);
+                        today.setHours(12, 0, 0, 0);
                         return date < today;
                       }}
                       className="bg-white border border-gray-200"
@@ -175,10 +192,11 @@ export function RepresentationForm({ onSuccess }: RepresentationFormProps) {
                 type="date"
                 value={endDate ? format(endDate, "yyyy-MM-dd") : ""}
                 onChange={(e) => {
-                  const newDate = e.target.value
-                    ? new Date(e.target.value)
-                    : undefined;
-                  setEndDate(newDate);
+                  if (e.target.value) {
+                    setEndDate(createDateAtNoon(e.target.value));
+                  } else {
+                    setEndDate(undefined);
+                  }
                 }}
                 className="pl-10 bg-gray-50 border-gray-200 text-gray-900 focus:bg-white focus:border-blue-500 transition-colors"
                 min={
@@ -203,11 +221,19 @@ export function RepresentationForm({ onSuccess }: RepresentationFormProps) {
                     <Calendar
                       mode="single"
                       selected={endDate}
-                      onSelect={setEndDate}
+                      onSelect={(date) => {
+                        if (date) {
+                          // Ensure the date is set to noon to avoid timezone issues
+                          date.setHours(12, 0, 0, 0);
+                          setEndDate(date);
+                        } else {
+                          setEndDate(undefined);
+                        }
+                      }}
                       initialFocus
                       disabled={(date) => {
                         const today = new Date();
-                        today.setHours(0, 0, 0, 0);
+                        today.setHours(12, 0, 0, 0);
                         return (
                           date < today ||
                           (startDate ? date <= startDate : false)

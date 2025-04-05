@@ -3,8 +3,7 @@ import type { components } from "@/api/types/api-types";
 
 const API_BASE_URL = "http://localhost:8000";
 
-export type Representation =
-  components["schemas"]["server.RepresentationsWithNullableTime"];
+export type Representation = components["schemas"]["server.RepresentationData"];
 
 export const requestRepresentation = async (
   username: string,
@@ -24,7 +23,7 @@ export const requestRepresentation = async (
 
 export const getRepresentations = async (): Promise<Representation[]> => {
   const response = await axios.get<Representation[]>(
-    `${API_BASE_URL}/agent/representations`
+    `${API_BASE_URL}/agent/representation`
   );
   return response.data;
 };
