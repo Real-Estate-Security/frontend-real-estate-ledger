@@ -4,7 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { ListingFromAPI } from "@/store/listingStore";
+import { useBiddingStore } from "@/store/biddingStore";
 
+/*
 interface ListingDetailFormProps {
   onSubmit?: (formAssetData: {
     formListingId: number;
@@ -17,6 +19,8 @@ interface ListingDetailFormProps {
     formListingAcceptedBidId: number;
   }) => void;
 }
+*/
+
 interface ListingDetailFormProps {
   listingFromAPI: ListingFromAPI; 
 }
@@ -24,7 +28,7 @@ interface ListingDetailFormProps {
 export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
 
   const [formMyBiddingPrice, setFormMyBiddingPrice] = useState("");
-  
+  const {createBiddingAPI} = useBiddingStore();  
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -32,6 +36,7 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
 
     try {
       setIsLoading(true);
+      await createBiddingAPI(1, formMyBiddingPrice, 1, 3, undefined);
 /*      await onSubmit({
         formPropertyAddress: formAssetPropertyAddress,
         formPropertyCity: formPropertyCity,

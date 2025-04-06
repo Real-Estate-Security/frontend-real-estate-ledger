@@ -296,6 +296,58 @@
                 }
             }
         },
+        "/bidding/createBid": {
+            "post": {
+                "description": "create a bid",
+                "tags": [
+                    "bidding"
+                ],
+                "summary": "create a bid",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.createBidRequest"
+                            }
+                        }
+                    },
+                    "description": "create a bid",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/server.bidResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/health": {
             "get": {
                 "description": "Returns the health status of the server",
@@ -327,6 +379,110 @@
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/listing/getListingByPropertyID": {
+            "post": {
+                "description": "get listing by property id",
+                "tags": [
+                    "listing"
+                ],
+                "summary": "get listing by property id",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.getListingByIDRequest"
+                            }
+                        }
+                    },
+                    "description": "get listig by property id",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/server.listingResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/property/getPropertyByID": {
+            "post": {
+                "description": "get property by id",
+                "tags": [
+                    "property"
+                ],
+                "summary": "get property by id",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.getPropertyByIDRequest"
+                            }
+                        }
+                    },
+                    "description": "get property by id",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/server.propertyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -542,6 +698,63 @@
                     }
                 }
             },
+            "server.bidResponse": {
+                "type": "object",
+                "required": [
+                    "AgentID",
+                    "Amount",
+                    "BuyerID",
+                    "ID",
+                    "ListingID",
+                    "PreviousBidID"
+                ],
+                "properties": {
+                    "AgentID": {
+                        "type": "integer"
+                    },
+                    "Amount": {
+                        "type": "string"
+                    },
+                    "BuyerID": {
+                        "type": "integer"
+                    },
+                    "ID": {
+                        "type": "integer"
+                    },
+                    "ListingID": {
+                        "type": "integer"
+                    },
+                    "PreviousBidID": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "server.createBidRequest": {
+                "type": "object",
+                "required": [
+                    "AgentID",
+                    "Amount",
+                    "BuyerID",
+                    "ListingID"
+                ],
+                "properties": {
+                    "AgentID": {
+                        "type": "integer"
+                    },
+                    "Amount": {
+                        "type": "string"
+                    },
+                    "BuyerID": {
+                        "type": "integer"
+                    },
+                    "ListingID": {
+                        "type": "integer"
+                    },
+                    "PreviousBidID": {
+                        "type": "integer"
+                    }
+                }
+            },
             "server.createUserRequest": {
                 "type": "object",
                 "required": [
@@ -582,6 +795,75 @@
                     }
                 }
             },
+            "server.getListingByIDRequest": {
+                "type": "object",
+                "required": [
+                    "PropertyID",
+                    "Username"
+                ],
+                "properties": {
+                    "PropertyID": {
+                        "type": "integer"
+                    },
+                    "Username": {
+                        "type": "string"
+                    }
+                }
+            },
+            "server.getPropertyByIDRequest": {
+                "type": "object",
+                "required": [
+                    "PropertyID",
+                    "Username"
+                ],
+                "properties": {
+                    "PropertyID": {
+                        "type": "integer"
+                    },
+                    "Username": {
+                        "type": "string"
+                    }
+                }
+            },
+            "server.listingResponse": {
+                "type": "object",
+                "required": [
+                    "AcceptedBidID",
+                    "AgentID",
+                    "Description",
+                    "ID",
+                    "ListingDate",
+                    "ListingStatus",
+                    "Price",
+                    "PropertyID"
+                ],
+                "properties": {
+                    "AcceptedBidID": {
+                        "type": "integer"
+                    },
+                    "AgentID": {
+                        "type": "integer"
+                    },
+                    "Description": {
+                        "type": "string"
+                    },
+                    "ID": {
+                        "type": "integer"
+                    },
+                    "ListingDate": {
+                        "type": "string"
+                    },
+                    "ListingStatus": {
+                        "type": "string"
+                    },
+                    "Price": {
+                        "type": "string"
+                    },
+                    "PropertyID": {
+                        "type": "integer"
+                    }
+                }
+            },
             "server.loginUserRequest": {
                 "type": "object",
                 "required": [
@@ -606,6 +888,45 @@
                     },
                     "user": {
                         "$ref": "#/components/schemas/server.userResponse"
+                    }
+                }
+            },
+            "server.propertyResponse": {
+                "type": "object",
+                "required": [
+                    "Address",
+                    "City",
+                    "ID",
+                    "NumOfBathrooms",
+                    "NumOfBedrooms",
+                    "Owner",
+                    "State",
+                    "ZipCode"
+                ],
+                "properties": {
+                    "Address": {
+                        "type": "string"
+                    },
+                    "City": {
+                        "type": "string"
+                    },
+                    "ID": {
+                        "type": "integer"
+                    },
+                    "NumOfBathrooms": {
+                        "type": "integer"
+                    },
+                    "NumOfBedrooms": {
+                        "type": "integer"
+                    },
+                    "Owner": {
+                        "type": "integer"
+                    },
+                    "State": {
+                        "type": "string"
+                    },
+                    "ZipCode": {
+                        "type": "integer"
                     }
                 }
             },
