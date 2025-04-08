@@ -30,6 +30,12 @@ const Home = () => {
                   Bidding
                 </Button>
               </Link>
+              <Link to="/frontend-real-estate-ledger/view-bids">
+                <Button variant="outline" size="lg" className="cursor-pointer">
+                  View Bids
+                </Button>
+              </Link>
+
               <Link to="/frontend-real-estate-ledger/login">
                 <Button variant="outline" size="lg" className="cursor-pointer">
                   Sign In

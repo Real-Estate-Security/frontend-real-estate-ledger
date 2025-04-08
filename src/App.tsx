@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import { Toaster } from "./components/ui/toaster";
 import AgentDashboard from "./pages/AgentDashboard";
 import Profile from "./pages/Profile";
+import ViewBids from "./pages/ViewBids";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           element={<Register />}
         />
           <Route path="/frontend-real-estate-ledger/bidding" element={<Bidding />} />
+          <Route path="/frontend-real-estate-ledger/view-bids" element={<ViewBids />} />
         <Route
           path="/frontend-real-estate-ledger/agent-dashboard"
           element={<AgentDashboard />}

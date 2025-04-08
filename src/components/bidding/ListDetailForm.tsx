@@ -36,7 +36,9 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
 
     try {
       setIsLoading(true);
-      await createBiddingAPI(1, formMyBiddingPrice, 1, 3, undefined);
+      console.log("Agent ID from listingFromAPI: ", listingFromAPI.AgentId);
+      //need endpoint given uername, can get user id (check if buyer id points to agent or point to actual buyer)
+      await createBiddingAPI(listingFromAPI.AgentId, formMyBiddingPrice, listingFromAPI.AgentId, listingFromAPI.Id, undefined);
 /*      await onSubmit({
         formPropertyAddress: formAssetPropertyAddress,
         formPropertyCity: formPropertyCity,
@@ -60,12 +62,12 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
         <div className="space-y-5">
           <div className="space-y-2">
               <Label htmlFor="formListingIdLabel" className="font-medium">
-                Listing Id: {listingFromAPI.Id}
+                Listing ID: {listingFromAPI.Id}
               </Label>
             </div>          
             <div className="space-y-2">
                 <Label htmlFor="formListingAgentIdLabel" className="font-medium">
-                Agency Id: {listingFromAPI.AgentId}
+                Agent Id: {listingFromAPI.AgentId}
                 </Label>
             </div>
             <div className="space-y-2">
@@ -80,7 +82,7 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
             </div>
             <div className="space-y-2">
                 <Label htmlFor="formListingDateLabel" className="font-medium">
-                Start Date: {listingFromAPI.ListingDate}
+                Listed Date: {listingFromAPI.ListingDate}
                 </Label>
             </div> 
             <div className="space-y-2">
@@ -90,7 +92,7 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
             </div>    
             <div className="space-y-2">
                 <Label htmlFor="formListingAcceptedBidIdLabel" className="font-medium">
-                Accepted Bit Id: {listingFromAPI.AcceptedBidId}
+                Accepted Bid Id: {listingFromAPI.AcceptedBidId}
                 </Label>
             </div>
             <div className="space-y-2">
