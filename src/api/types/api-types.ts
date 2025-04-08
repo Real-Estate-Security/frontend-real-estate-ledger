@@ -277,6 +277,18 @@ export interface components {
             role: "user" | "agent";
             username: string;
         };
+        "server.createListingDisplayRequest": {
+            agentfirstName: string,
+            agentlastName: string,
+            agentEmail: string,
+            address: string,
+            description: string,
+            bathrooms: number,
+            bedrooms: number,
+            price: number,
+            listing_status: string,
+            listing_date: Date,
+        };
         "server.loginUserRequest": {
             password: string;
             username: string;

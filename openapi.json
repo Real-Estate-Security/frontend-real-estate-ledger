@@ -253,6 +253,49 @@
                     }
                 }
             },
+            "server.createListingDisplayRequest": {
+                "type": "object",
+                "required": [
+                    "agentfirstName",
+                    "agentlastName",
+                    "agentEmail",
+                    "address",
+                    "description",
+                    "bathrooms",
+                    "bedrooms",
+                    "price",
+                    "listing_status",
+                    "listing_date"
+                ],
+                // "properties": {
+                //     "dob": {
+                //         "type": "string"
+                //     },
+                //     "email": {
+                //         "type": "string"
+                //     },
+                //     "first_name": {
+                //         "type": "string"
+                //     },
+                //     "last_name": {
+                //         "type": "string"
+                //     },
+                //     "password": {
+                //         "type": "string",
+                //         "minLength": 6
+                //     },
+                //     "role": {
+                //         "type": "string",
+                //         "enum": [
+                //             "user",
+                //             "agent"
+                //         ]
+                //     },
+                //     "username": {
+                //         "type": "string"
+                //     }
+                }
+            },
             "server.loginUserRequest": {
                 "type": "object",
                 "required": [
