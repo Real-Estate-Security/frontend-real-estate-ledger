@@ -1,7 +1,7 @@
 import axios from "../utils/axiosInstance";
 import { components } from "../api/types/api-types";
 
-const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL = "http://localhost:8000";
 
 export type LoginResponse = components["schemas"]["server.loginUserResponse"];
 export type UserResponse = components["schemas"]["server.userResponse"];
