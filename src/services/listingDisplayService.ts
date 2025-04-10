@@ -7,7 +7,7 @@ export type ListingDisplayResponse =
   components["schemas"]["server.listingDisplayResponse"];
 
 // Display Listing function
-export const listing = async (
+export const getListings = async (
 ): Promise<ListingDisplayResponse[]> => {
   const response = await axios.get<ListingDisplayResponse[]>(
     `${API_BASE_URL}/listing`

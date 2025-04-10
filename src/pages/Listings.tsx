@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
+import { getListings, type ListingDisplayResponse }from "@/services/listingDisplayService";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Table,
-  TableBody,
   TableCaption,
   TableCell,
   TableFooter,
@@ -10,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 
 // const LISTINGS = [ //example from shacn documentation - replace w listing info from table SQL
 //   {
@@ -56,7 +58,25 @@ import {
 //   },
 // ]
 
-const ViewListings = () => {
+export default function ViewListings() {
+  const [listings, setListings] = useState<ListingDisplayResponse[]>([]);
+  
+  const loadListings = async () => {
+    try {
+      const data = await getListings();
+      setListings(data);
+    } 
+    
+    catch (error) {
+      "Failed to display listings";
+    }
+  };  
+
+  useEffect(() => {loadListings();}); //try to load listings
+
+
+
+  //////////////////////////// DO NOT EDIT BELOW UNTIL TIME TO FIX FORMATTING///////////////////////////
   const navigate = useNavigate();
 
   const handleNewListing = () => {
@@ -87,50 +107,56 @@ const ViewListings = () => {
                 </Button>
               </Link>
             </div>
-
+     
+        
+      
   <Table className="max-h-screen, overflow-scroll, text-2xl">
   <TableCaption>A list of all current listings.</TableCaption>
-  <TableHeader>
-    <TableRow>
-      <TableHead className="w-[100px]">Agent First Name</TableHead>
-      <TableHead className="w-[100px]">Agent Last Name</TableHead>
-      <TableHead className="w-[200px]">Agent Email</TableHead>
-      <TableHead>Address</TableHead>
-      <TableHead className="w-[100px]">Status</TableHead>
-      <TableHead>Price</TableHead>
-      <TableHead className="w-[100px]">Bedrooms</TableHead>
-      <TableHead className="w-[100px]">Bathrooms</TableHead>
-      <TableHead>Details</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    {/* {invoices.map((invoice) => (
-      <TableRow key={invoice.invoice}>
-        <TableCell className="font-medium">{invoice.invoice}</TableCell>
-        <TableCell>{invoice.paymentStatus}</TableCell>
-        <TableCell>{invoice.paymentMethod}</TableCell>
-        <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+  
+    <TableHeader>
+      <TableRow>
+        <TableHead className="w-[100px]">Agent Name</TableHead>
+        <TableHead className="w-[200px]">Agent Email</TableHead>
+        <TableHead>Address</TableHead>
+        <TableHead>City</TableHead>
+        <TableHead>State</TableHead>
+        <TableHead>ZipCode</TableHead>
+        <TableHead>Price</TableHead>
+        <TableHead className="w-[100px]">Listing Date</TableHead>
+        <TableHead className="w-[100px]">Status</TableHead>
+        <TableHead className="w-[100px]">Bedrooms</TableHead>
+        <TableHead className="w-[100px]">Bathrooms</TableHead>
+        <TableHead>Description</TableHead>
       </TableRow>
-    ))} */}
-  </TableBody>
+    </TableHeader>
+    
+    {/* Begin INTEGRATING BACKEND */}
+    <div>
+    {listings.map((listing, idx) => (
+    <div key={idx}>
+        
   <TableFooter>
     <TableRow>
-      <TableCell colSpan={1}>John</TableCell>
-      <TableCell colSpan={1}>Doe</TableCell>
-      <TableCell colSpan={1}>johndoe@mail.com</TableCell>
-      <TableCell colSpan={1}>400 Bizzell Street College Station, TX 77843</TableCell>
-      <TableCell colSpan={1}>Available</TableCell>
-      <TableCell colSpan={1}>$145,000,000</TableCell>
-      <TableCell colSpan={1}>5</TableCell>
-      <TableCell colSpan={1}>3</TableCell>
-      <TableCell colSpan={1}>University in an unbeatable location. Texas A&M is located in the heart of College Station, home to the Texas Aggies.</TableCell>
+      <TableCell colSpan={1}>{listing.first_name} {listing.last_name}</TableCell>
+      <TableCell colSpan={1}>{listing.email}</TableCell>
+      <TableCell colSpan={1}>{listing.address}</TableCell>
+      <TableCell colSpan={1}>{listing.city}</TableCell>
+      <TableCell colSpan={1}>{listing.price}</TableCell>
+      <TableCell colSpan={1}>{listing.zipcode}</TableCell>
+      <TableCell colSpan={1}>{listing.state}</TableCell>
+      <TableCell colSpan={1}>{listing.listing_date}</TableCell>
+      <TableCell colSpan={1}>{listing.listing_status}</TableCell>
+      <TableCell colSpan={1}>{listing.bedrooms}</TableCell>
+      <TableCell colSpan={1}>{listing.bathrooms}</TableCell>
+      <TableCell colSpan={1}>{listing.description}</TableCell>
     </TableRow>
   </TableFooter>
+    </div>
+        ))}
+    </div>
   </Table>
       </section>
     </div>
 )
   
 }
-
-export default ViewListings;
