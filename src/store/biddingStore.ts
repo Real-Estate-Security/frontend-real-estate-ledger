@@ -2,6 +2,7 @@ import { create } from "zustand";
 import {
   createBidding as createBiddingAPI,
   listBids,
+  rejectBid,
 } from "../services/biddingService";
 
 export interface BiddingListResponseFromAPI {
@@ -44,6 +45,8 @@ interface CreateBiddingState {
   createBiddingResponseFromAPI: CreateBiddingResponseFromAPI | null;
   biddingListResponseFromAPI: BiddingListResponseFromAPI[] | null;
   listBidsResponseFromAPI: ListBidsResponseFromAPI[] | null;
+
+  rejectBidAPI: (ID: number) => Promise<number>;
   createBiddingAPI: (agentId: number, amount: string, buyerId: number, listingId:number, previousBidId?:number) => Promise<void>;
   getBidingListByBuyerIdAPI: (buyerId:number) => Promise<void>;
   updateBiddingStatusAPI: (biddingId:number, newBiddingStatus: string) => Promise<void>;
@@ -61,17 +64,6 @@ export const useBiddingStore = create<CreateBiddingState>((set) => ({
 
   getBidingListByBuyerIdAPI: async(buyerId) => {
     console.log("biddingStore:getBidingListByBuyerIdAPI: buyerId=" + buyerId);    
-    // const biddingListResponseFromAPI = [
-    //   { id: 1, name: "Alice1", email: "alice@example.com", role: "Admin", status: "Active" },
-    //   { id: 2, name: "Bob2", email: "bob@example.com", role: "User", status: "Inactive" },
-    //   { id: 3, name: "Charlie3", email: "charlie@example.com", role: "Editor", status: "Active" },
-    //   { id: 4, name: "Alice4", email: "alice@example.com", role: "Admin", status: "Active" },
-    //   { id: 5, name: "Bob5", email: "bob@example.com", role: "User", status: "Inactive" },
-    //   { id: 6, name: "Charlie6", email: "charlie@example.com", role: "Editor", status: "Active" },
-    //   { id: 7, name: "Alic7e", email: "alice@example.com", role: "Admin", status: "Active" },
-    //   { id: 8, name: "Bob8", email: "bob@example.com", role: "User", status: "Inactive" },
-    //   { id: 9, name: "Charlie9", email: "charlie@example.com", role: "Editor", status: "Active" },            
-    // ];
 
     try {
       const response = await listBids(1, "test123");
@@ -88,7 +80,6 @@ export const useBiddingStore = create<CreateBiddingState>((set) => ({
             Status: item.Status
           }));
           set({ listBidsResponseFromAPI });
-          //console.log("biddingStore:getBidingListByBuyerIdAPI: listBidsResponseFromAPI - Response=" + JSON.stringify(listBidsResponseFromAPI));
           console.log("biddingStore:getBidingListByBuyerIdAPI: listBidsResponseFromAPI - array=" + JSON.stringify(listBidsResponseFromAPI));
         } else {
           const listBidsResponseFromAPI: ListBidsResponseFromAPI[] = [{
@@ -105,7 +96,7 @@ export const useBiddingStore = create<CreateBiddingState>((set) => ({
         }
       }
     } catch (error) {
-      console.error("Error creating bid:", error);
+      console.error("Error listing bid:", error);
     }
 
     
@@ -131,4 +122,17 @@ export const useBiddingStore = create<CreateBiddingState>((set) => ({
     }
 
   },
+  rejectBidAPI: async (ID) => {
+    try {
+      const response = await rejectBid(ID);
+      if (response) {
+        console.log("biddingStore:rejectBidAPI response= " + response.toString());
+        return response; // Ensure the response is returned as a number
+      }
+      throw new Error("No response received from rejectBid");
+    } catch (error) {
+      console.error("Error rejecting bid:", error);
+      throw error; // Re-throw the error to maintain the Promise<number> contract
+    }
+  }
 }));

@@ -45,3 +45,17 @@ export const listBids = async (
   );
   return response.data;
 };
+
+// rejectBid function
+export const rejectBid = async (
+  ID: number
+): Promise<number> => {
+  console.log("biddingService:listBids: Bid ID =" + ID)
+  const response = await axios.put<number>(
+    `${API_BASE_URL}/bidding/rejectBid`,
+    {
+      ID,
+    }
+  );
+  return response.data;
+};

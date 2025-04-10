@@ -3,7 +3,7 @@ import { CardContent } from "@/components/ui/card";
 import { useBiddingStore } from "@/store/biddingStore";
 
 export function ViewBiddingForm() {
-  const { getBidingListByBuyerIdAPI, listBidsResponseFromAPI, updateBiddingStatusAPI } = useBiddingStore();  
+  const { getBidingListByBuyerIdAPI, listBidsResponseFromAPI, rejectBidAPI } = useBiddingStore();  
   const [isLoading, setIsLoading] = useState(true);
   const [statusMap, setStatusMap] = useState<{ [id: number]: string }>({});
   const [errorForUI, setErrorForUI] = useState("");
@@ -47,7 +47,7 @@ export function ViewBiddingForm() {
         return { ...prev, [id]: newStatus };
       });
 
-      await updateBiddingStatusAPI(id, newStatus);
+      await rejectBidAPI(id);
       console.log("handleStatusChange Status changed for id=", id, ", new status =", newStatus);
       setStatusMessageForUI(
         <>
@@ -98,9 +98,10 @@ export function ViewBiddingForm() {
                         value={statusMap[row.ID] || ""}
                         onChange={(e) => handleStatusChange(row.ID, e.target.value)}
                       >
-                        <option value="Pending">Pending</option>
-                        <option value="Active">Active</option>
-                        <option value="Cancelled">Cancelled</option>
+                        <option value="pending">Pending</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="countered">Countered</option>
                       </select>
                     </td>
                   </tr>
