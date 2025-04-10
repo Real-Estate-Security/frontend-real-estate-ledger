@@ -6,57 +6,11 @@ import {
   Table,
   TableCaption,
   TableCell,
-  TableFooter,
+  TableBody,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-
-// const LISTINGS = [ //example from shacn documentation - replace w listing info from table SQL
-//   {
-//     invoice: "INV001",
-//     paymentStatus: "Paid",
-//     totalAmount: "$250.00",
-//     paymentMethod: "Credit Card",
-//   },
-//   {
-//     invoice: "INV002",
-//     paymentStatus: "Pending",
-//     totalAmount: "$150.00",
-//     paymentMethod: "PayPal",
-//   },
-//   {
-//     invoice: "INV003",
-//     paymentStatus: "Unpaid",
-//     totalAmount: "$350.00",
-//     paymentMethod: "Bank Transfer",
-//   },
-//   {
-//     invoice: "INV004",
-//     paymentStatus: "Paid",
-//     totalAmount: "$450.00",
-//     paymentMethod: "Credit Card",
-//   },
-//   {
-//     invoice: "INV005",
-//     paymentStatus: "Paid",
-//     totalAmount: "$550.00",
-//     paymentMethod: "PayPal",
-//   },
-//   {
-//     invoice: "INV006",
-//     paymentStatus: "Pending",
-//     totalAmount: "$200.00",
-//     paymentMethod: "Bank Transfer",
-//   },
-//   {
-//     invoice: "INV007",
-//     paymentStatus: "Unpaid",
-//     totalAmount: "$300.00",
-//     paymentMethod: "Credit Card",
-//   },
-// ]
 
 export default function ViewListings() {
   const [listings, setListings] = useState<ListingDisplayResponse[]>([]);
@@ -68,7 +22,7 @@ export default function ViewListings() {
     } 
     
     catch (error) {
-      "Failed to display listings";
+      console.log("Error: Failed to display listings", error);
     }
   };  
 
@@ -110,8 +64,8 @@ export default function ViewListings() {
      
         
       
-  <Table className="max-h-screen, overflow-scroll, text-2xl">
-  <TableCaption>A list of all current listings.</TableCaption>
+  <Table  className="max-h-screen, overflow-scroll, text-2xl">
+  <TableCaption>A view of all current listings.</TableCaption>
   
     <TableHeader>
       <TableRow>
@@ -130,33 +84,30 @@ export default function ViewListings() {
       </TableRow>
     </TableHeader>
     
-    {/* Begin INTEGRATING BACKEND */}
-    <div>
-    {listings.map((listing, idx) => (
-    <div key={idx}>
-        
-  <TableFooter>
-    <TableRow>
-      <TableCell colSpan={1}>{listing.first_name} {listing.last_name}</TableCell>
-      <TableCell colSpan={1}>{listing.email}</TableCell>
-      <TableCell colSpan={1}>{listing.address}</TableCell>
-      <TableCell colSpan={1}>{listing.city}</TableCell>
-      <TableCell colSpan={1}>{listing.price}</TableCell>
-      <TableCell colSpan={1}>{listing.zipcode}</TableCell>
-      <TableCell colSpan={1}>{listing.state}</TableCell>
-      <TableCell colSpan={1}>{listing.listing_date}</TableCell>
-      <TableCell colSpan={1}>{listing.listing_status}</TableCell>
-      <TableCell colSpan={1}>{listing.bedrooms}</TableCell>
-      <TableCell colSpan={1}>{listing.bathrooms}</TableCell>
-      <TableCell colSpan={1}>{listing.description}</TableCell>
-    </TableRow>
-  </TableFooter>
-    </div>
+  {/* Begin INTEGRATING BACKEND */}
+  <TableBody>
+  
+  {listings.map((listing, idx) => (
+        <TableRow key={idx}>
+          <TableCell><p>{listing.first_name} {listing.last_name}</p></TableCell>
+          <TableCell>{listing.email}</TableCell>
+          <TableCell>{listing.address}</TableCell>
+          <TableCell>{listing.city}</TableCell>
+          <TableCell>{listing.state}</TableCell>
+          <TableCell>{listing.zipcode}</TableCell>
+          <TableCell>${listing.price}</TableCell>
+          <TableCell>{listing.listing_date}</TableCell>
+          <TableCell>{listing.listing_status}</TableCell>
+          <TableCell>{listing.bedrooms}</TableCell>
+          <TableCell>{listing.bathrooms}</TableCell>
+          <TableCell>{listing.description}</TableCell>
+        </TableRow>
         ))}
-    </div>
+    </TableBody>
+
   </Table>
-      </section>
-    </div>
+  </section>
+  </div>
 )
   
 }
