@@ -4,7 +4,161 @@
  */
 
 export interface paths {
-    "/example/helloworld": {
+    "/agent/accept-representation/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Accept representation request
+         * @description Allows an agent to accept a representation request.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Representation ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Representation request accepted successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Invalid request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Representation not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/decline-representation/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Decline representation request
+         * @description Allows an agent to decline a representation request.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Representation ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Representation request declined successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Invalid request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Representation not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/representation": {
         parameters: {
             query?: never;
             header?: never;
@@ -12,31 +166,148 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * HelloWorld example
-         * @description HelloWorld example
+         * List representations
+         * @description Fetches all representations for the authenticated user, whether they are an agent or a regular user.
          */
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    /** @description Limit (default: 10) */
+                    limit?: number;
+                    /** @description Offset (default: 0) */
+                    offset?: number;
+                };
                 header?: never;
                 path?: never;
                 cookie?: never;
             };
             requestBody?: never;
             responses: {
-                /** @description OK */
+                /** @description List of representations */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": components["schemas"]["server.RepresentationData"][];
+                    };
+                };
+                /** @description Invalid request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
             };
         };
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/request-representation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Request representation
+         * @description Allows an agent to request representation for a user.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Request Representation Request */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.requestAgentRepresentationRequest"];
+                };
+            };
+            responses: {
+                /** @description Representation request submitted successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Invalid request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Client not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -76,6 +347,291 @@ export interface paths {
         };
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/hello-world": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * HelloWorld example
+         * @description HelloWorld example
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/listing/getListingByPropertyID": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * get listing by property id
+         * @description get listing by property id
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description get listig by property id */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.getListingByIDRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.listingResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/listing/getListings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * display properties
+         * @description get listing by property id
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description Limit (default: 10) */
+                    limit?: number;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.listingDisplayResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/properties": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * given listing, create property if doesn't exist and then create listing for that property
+         * @description creating a listing for a property
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description creating a listing for a property */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.createListingRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/property/getPropertyByID": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * get property by id
+         * @description get property by id
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description get property by id */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.getPropertyByIDRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.propertyResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -267,6 +823,43 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        "server.NullableTime": {
+            time?: string;
+            valid?: boolean;
+        };
+        "server.RepresentationData": {
+            agent_first_name?: string;
+            agent_id?: number;
+            agent_last_name?: string;
+            agent_username?: string;
+            client_first_name?: string;
+            client_id?: number;
+            client_last_name?: string;
+            client_username?: string;
+            end_date?: components["schemas"]["server.NullableTime"];
+            id?: number;
+            is_active?: boolean;
+            requested_at?: string;
+            signed_at?: components["schemas"]["server.NullableTime"];
+            start_date?: string;
+            status?: string;
+        };
+        "server.createListingRequest": {
+            Address: string;
+            AgentEmail: string;
+            AgentFirstName?: string;
+            AgentLastName?: string;
+            Bathrooms: number;
+            Bedrooms: number;
+            City: string;
+            Description?: string;
+            OwnerEmail: string;
+            OwnerFirstName: string;
+            OwnerLastName: string;
+            Price: string;
+            State: string;
+            Zipcode: number;
+        };
         "server.createUserRequest": {
             dob: string;
             email: string;
@@ -277,17 +870,38 @@ export interface components {
             role: "user" | "agent";
             username: string;
         };
-        "server.createListingDisplayRequest": {
-            agentfirstName: string,
-            agentlastName: string,
-            agentEmail: string,
-            address: string,
-            description: string,
-            bathrooms: number,
-            bedrooms: number,
-            price: number,
-            listing_status: string,
-            listing_date: Date,
+        "server.getListingByIDRequest": {
+            PropertyID: number;
+            Username: string;
+        };
+        "server.getPropertyByIDRequest": {
+            PropertyID: number;
+            Username: string;
+        };
+        "server.listingDisplayResponse": {
+            address?: string;
+            bathrooms?: number;
+            bedrooms?: number;
+            city?: string;
+            description?: string;
+            email?: string;
+            first_name?: string;
+            last_name?: string;
+            listing_date?: string;
+            listing_status?: string;
+            price?: string;
+            state?: string;
+            zipcode?: number;
+        };
+        "server.listingResponse": {
+            AcceptedBidID: number;
+            AgentID: number;
+            Description: string;
+            ID: number;
+            ListingDate: string;
+            ListingStatus: string;
+            Price: string;
+            PropertyID: number;
         };
         "server.loginUserRequest": {
             password: string;
@@ -296,6 +910,21 @@ export interface components {
         "server.loginUserResponse": {
             access_token?: string;
             user?: components["schemas"]["server.userResponse"];
+        };
+        "server.propertyResponse": {
+            Address: string;
+            City: string;
+            ID: number;
+            NumOfBathrooms: number;
+            NumOfBedrooms: number;
+            Owner: number;
+            State: string;
+            ZipCode: number;
+        };
+        "server.requestAgentRepresentationRequest": {
+            client_username: string;
+            end_date: string;
+            start_date: string;
         };
         "server.userMeResponse": {
             user?: components["schemas"]["server.userResponse"];
