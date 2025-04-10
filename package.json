@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "type-check": "tsc --noEmit",
-    "refresh-api-types": "npx swagger2openapi http://localhost:8080/swagger/doc.json -o openapi.json && npx openapi-typescript openapi.json -o src/api/types/api-types.ts --extract-enums"
+    "refresh-api-types": "npx swagger2openapi http://localhost:8000/swagger/doc.json -o openapi.json && npx openapi-typescript openapi.json -o src/api/types/api-types.ts --extract-enums"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",

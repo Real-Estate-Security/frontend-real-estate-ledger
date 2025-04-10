@@ -267,33 +267,37 @@
                     "listing_status",
                     "listing_date"
                 ],
-                // "properties": {
-                //     "dob": {
-                //         "type": "string"
-                //     },
-                //     "email": {
-                //         "type": "string"
-                //     },
-                //     "first_name": {
-                //         "type": "string"
-                //     },
-                //     "last_name": {
-                //         "type": "string"
-                //     },
-                //     "password": {
-                //         "type": "string",
-                //         "minLength": 6
-                //     },
-                //     "role": {
-                //         "type": "string",
-                //         "enum": [
-                //             "user",
-                //             "agent"
-                //         ]
-                //     },
-                //     "username": {
-                //         "type": "string"
-                //     }
+                "properties": {
+                    "agentfirstName": {
+                        "type": "string"
+                    },
+                    "agentlastName": {
+                        "type": "string"
+                    },
+                    "agentEmail": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "bedrooms": {
+                        "type": "string"
+                    },
+                    "bathrooms": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "string"
+                    },
+                    "listing_status": {
+                        "type": "string"
+                    },
+                    "listing_date": {
+                        "type": "string"
+                    }
                 }
             },
             "server.loginUserRequest": {
