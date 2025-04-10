@@ -314,7 +314,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/bidding/createBid": {
+    "/bidding/acceptBid": {
         parameters: {
             query?: never;
             header?: never;
@@ -322,22 +322,21 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        put?: never;
         /**
-         * create a bid
-         * @description create a bid
+         * accept a bid
+         * @description accept a bid
          */
-        post: {
+        put: {
             parameters: {
                 query?: never;
                 header?: never;
                 path?: never;
                 cookie?: never;
             };
-            /** @description create a bid */
+            /** @description accept a bid */
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["server.createBidRequest"];
+                    "application/json": components["schemas"]["server.rejectBidRequest"];
                 };
             };
             responses: {
@@ -347,7 +346,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["server.bidResponse"];
+                        "application/json": string;
                     };
                 };
                 /** @description Bad Request */
@@ -365,13 +364,12 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            [key: string]: unknown;
-                        };
+                        "application/json": string;
                     };
                 };
             };
         };
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -434,6 +432,192 @@ export interface paths {
                 };
             };
         };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bidding/listBids": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * given user, list all bid with them as buyer
+         * @description listing all bids belonging to a given buyer
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description listing all bids belonging to a given buyer */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.listBidsRequest"];
+                };
+            };
+            responses: {
+                /** @description list of bids */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.listBidResponse"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bidding/listBidsOnListing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * given listing, list all bids with that as the listing
+         * @description listing all bids with a given listing
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description listing all bids that have a specific listing */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.listBidsOnListingRequest"];
+                };
+            };
+            responses: {
+                /** @description list of bids */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.listBidResponse"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bidding/rejectBid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * reject a bid
+         * @description reject a bid
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description reject a bid */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.rejectBidRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -826,7 +1010,8 @@ export interface paths {
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    "server.NullableTime": {
+    schemas: {
+        "server.NullableTime": {
             time?: string;
             valid?: boolean;
         };
@@ -862,21 +1047,6 @@ export interface components {
             ListingID: number;
             PreviousBidID?: number;
         };
-        "server.bidResponse": {
-            AgentID: number;
-            Amount: string;
-            BuyerID: number;
-            ID: number;
-            ListingID: number;
-            PreviousBidID: number;
-        };
-        "server.createBidRequest": {
-            AgentID: number;
-            Amount: string;
-            BuyerID: number;
-            ListingID: number;
-            PreviousBidID?: number;
-        };
         "server.createUserRequest": {
             dob: string;
             email: string;
@@ -893,6 +1063,22 @@ export interface components {
         };
         "server.getPropertyByIDRequest": {
             PropertyID: number;
+            Username: string;
+        };
+        "server.listBidResponse": {
+            AgentID: number;
+            Amount: string;
+            BuyerID: number;
+            ID: number;
+            ListingID: number;
+            PreviousBidID: number;
+            Status: string;
+        };
+        "server.listBidsOnListingRequest": {
+            ListingID: number;
+        };
+        "server.listBidsRequest": {
+            BuyerID: number;
             Username: string;
         };
         "server.listingResponse": {
@@ -922,6 +1108,9 @@ export interface components {
             Owner: number;
             State: string;
             ZipCode: number;
+        };
+        "server.rejectBidRequest": {
+            ID: number;
         };
         "server.requestAgentRepresentationRequest": {
             client_username: string;
