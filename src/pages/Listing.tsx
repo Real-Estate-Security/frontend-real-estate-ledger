@@ -116,7 +116,7 @@ export default function ViewListings() {
     <TableHeader>
       <TableRow>
         <TableHead className="w-[100px]">Agent Name</TableHead>
-        <TableHead className="w-[200px]">Agent Email</TableHead>
+        <TableHead className="w-[200px]">Email</TableHead>
         <TableHead>Address</TableHead>
         <TableHead>City</TableHead>
         <TableHead>State</TableHead>

@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Properties from "./pages/Properties";
-import Listings from "./pages/Listings";
+import Listings from "./pages/Listing";
 function App() {
   return (
     <div>
