@@ -35,7 +35,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Invalid request */
@@ -44,7 +46,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Representation not found */
@@ -53,7 +57,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Internal server error */
@@ -62,7 +68,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
             };
@@ -104,7 +112,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Invalid request */
@@ -113,7 +123,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Representation not found */
@@ -122,7 +134,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Internal server error */
@@ -131,7 +145,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
             };
@@ -142,7 +158,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/agent/representations": {
+    "/agent/representation": {
         parameters: {
             query?: never;
             header?: never;
@@ -173,7 +189,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["server.RepresentationsWithNullableTime"][];
+                        "application/json": components["schemas"]["server.RepresentationData"][];
                     };
                 };
                 /** @description Invalid request */
@@ -182,7 +198,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Unauthorized */
@@ -191,7 +209,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Internal server error */
@@ -200,7 +220,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
             };
@@ -246,7 +268,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Invalid request */
@@ -255,7 +279,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Client not found */
@@ -264,7 +290,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Internal server error */
@@ -273,7 +301,73 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bidding/createBid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * create a bid
+         * @description create a bid
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description create a bid */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.createBidRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.bidResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
                         "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
             };
@@ -732,22 +826,41 @@ export interface paths {
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        "server.NullableTime": {
+    "server.NullableTime": {
             time?: string;
             valid?: boolean;
         };
-        "server.RepresentationsWithNullableTime": {
+        "server.RepresentationData": {
+            agent_first_name?: string;
             agent_id?: number;
-            created_at?: string;
+            agent_last_name?: string;
+            agent_username?: string;
+            client_first_name?: string;
+            client_id?: number;
+            client_last_name?: string;
+            client_username?: string;
             end_date?: components["schemas"]["server.NullableTime"];
             id?: number;
             is_active?: boolean;
-            signed_date?: components["schemas"]["server.NullableTime"];
+            requested_at?: string;
+            signed_at?: components["schemas"]["server.NullableTime"];
             start_date?: string;
             status?: string;
-            updated_at?: string;
-            user_id?: number;
+        };
+        "server.bidResponse": {
+            AgentID: number;
+            Amount: string;
+            BuyerID: number;
+            ID: number;
+            ListingID: number;
+            PreviousBidID: number;
+        };
+        "server.createBidRequest": {
+            AgentID: number;
+            Amount: string;
+            BuyerID: number;
+            ListingID: number;
+            PreviousBidID?: number;
         };
         "server.bidResponse": {
             AgentID: number;

@@ -17,7 +17,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 interface RegisterFormProps {
   onSubmit?: (userData: {
@@ -43,6 +43,14 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Helper function to create a date at noon to avoid timezone issues
+  const createDateAtNoon = (dateString: string): Date => {
+    const date = parseISO(dateString);
+    // Set to noon to avoid timezone issues
+    date.setHours(12, 0, 0, 0);
+    return date;
+  };
+
   const validateForm = () => {
     if (password !== confirmPassword) {
       setError("Passwords do not match");
@@ -66,6 +74,7 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
       today.getMonth(),
       today.getDate()
     );
+    eighteenYearsAgo.setHours(12, 0, 0, 0);
 
     if (dateOfBirth > eighteenYearsAgo) {
       setError("You must be at least 18 years old to register");
@@ -169,10 +178,11 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
                 required
                 value={dateOfBirth ? format(dateOfBirth, "yyyy-MM-dd") : ""}
                 onChange={(e) => {
-                  const newDate = e.target.value
-                    ? new Date(e.target.value)
-                    : undefined;
-                  setDateOfBirth(newDate);
+                  if (e.target.value) {
+                    setDateOfBirth(createDateAtNoon(e.target.value));
+                  } else {
+                    setDateOfBirth(undefined);
+                  }
                 }}
                 className="pl-10 bg-gray-50 focus:bg-white transition-colors"
                 max={format(
@@ -201,7 +211,15 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
                     <CalendarComponent
                       mode="single"
                       selected={dateOfBirth}
-                      onSelect={setDateOfBirth}
+                      onSelect={(date) => {
+                        if (date) {
+                          // Ensure the date is set to noon to avoid timezone issues
+                          date.setHours(12, 0, 0, 0);
+                          setDateOfBirth(date);
+                        } else {
+                          setDateOfBirth(undefined);
+                        }
+                      }}
                       initialFocus
                       disabled={(date: Date) => {
                         // Disable future dates and dates less than 18 years ago
@@ -212,6 +230,7 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
                           today.getMonth(),
                           today.getDate()
                         );
+                        maxDate.setHours(12, 0, 0, 0);
                         return date > maxDate || date < minDate;
                       }}
                     />
@@ -296,7 +315,7 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
                   <SelectValue placeholder="Select role" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="admin">Agent</SelectItem>
+                  <SelectItem value="agent">Agent</SelectItem>
                   <SelectItem value="user">User</SelectItem>
                 </SelectContent>
               </Select>

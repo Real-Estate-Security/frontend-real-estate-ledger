@@ -47,7 +47,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -57,7 +58,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -67,7 +69,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -77,7 +80,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -114,7 +118,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -124,7 +129,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -134,7 +140,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -144,7 +151,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -152,7 +160,7 @@
                 }
             }
         },
-        "/agent/representations": {
+        "/agent/representation": {
             "get": {
                 "security": [
                     {
@@ -190,7 +198,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/server.RepresentationsWithNullableTime"
+                                        "$ref": "#/components/schemas/server.RepresentationData"
                                     }
                                 }
                             }
@@ -201,7 +209,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -211,7 +220,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -221,7 +231,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -258,7 +269,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -268,7 +280,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -278,7 +291,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -288,7 +302,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -663,13 +678,31 @@
                     }
                 }
             },
-            "server.RepresentationsWithNullableTime": {
+            "server.RepresentationData": {
                 "type": "object",
                 "properties": {
+                    "agent_first_name": {
+                        "type": "string"
+                    },
                     "agent_id": {
                         "type": "integer"
                     },
-                    "created_at": {
+                    "agent_last_name": {
+                        "type": "string"
+                    },
+                    "agent_username": {
+                        "type": "string"
+                    },
+                    "client_first_name": {
+                        "type": "string"
+                    },
+                    "client_id": {
+                        "type": "integer"
+                    },
+                    "client_last_name": {
+                        "type": "string"
+                    },
+                    "client_username": {
                         "type": "string"
                     },
                     "end_date": {
@@ -681,7 +714,10 @@
                     "is_active": {
                         "type": "boolean"
                     },
-                    "signed_date": {
+                    "requested_at": {
+                        "type": "string"
+                    },
+                    "signed_at": {
                         "$ref": "#/components/schemas/server.NullableTime"
                     },
                     "start_date": {
@@ -689,12 +725,6 @@
                     },
                     "status": {
                         "type": "string"
-                    },
-                    "updated_at": {
-                        "type": "string"
-                    },
-                    "user_id": {
-                        "type": "integer"
                     }
                 }
             },
