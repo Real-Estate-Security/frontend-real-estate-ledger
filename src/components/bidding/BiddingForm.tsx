@@ -11,7 +11,7 @@ import { useListingStore } from "@/store/listingStore";
 export function BiddingForm() {
   const [formPropertyId, setFormPropertyId] = useState("");
   const { getPropertyByIDAPI, propertyFromAPI} = usePropertyStore();  
-  const {getListingByPropertyIDAPI, listingFromAPI} = useListingStore();
+  const {getListingByPropertyIDApi, listingFromAPI} = useListingStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   
@@ -22,15 +22,13 @@ export function BiddingForm() {
     try {
       setIsLoading(true);
       await getPropertyByIDAPI(Number(formPropertyId), "test123");
-      await getListingByPropertyIDAPI(Number(formPropertyId), "test123");
+      await getListingByPropertyIDApi(Number(formPropertyId), "test123");
       setIsAssetDetailVisible(true); // Show the asset detail form after successful submission      
     } catch (error) {
       console.error("Bidding submission error:", error);
       setError("Failed to submit bidding. Please try again.");
     } finally {
-      setIsLoading(false);
-      console.log("BiddingForm:handleGetAssetById: propertyFromAPI=" + JSON.stringify(propertyFromAPI));      
-      console.log("BiddingForm:handleGetAssetById: listingFromAPI=" + JSON.stringify(listingFromAPI));           
+      setIsLoading(false);        
     }
   };
 
