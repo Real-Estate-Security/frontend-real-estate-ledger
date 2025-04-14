@@ -15,17 +15,30 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/frontend-real-estate-ledger" element={<Home />}>
-          <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="properties" element={<Properties />} />
-          <Route path="listings" element={<Listings />} />
-          <Route path="bidding" element={<Bidding />} />
-          <Route path="view-bids" element={<ViewBids />} />
-          <Route path="agent-dashboard" element={<AgentDashboard />} />
-          <Route path="profile" element={<Profile />} />
-        </Route>
+        <Route path="/frontend-real-estate-ledger" element={<Home />} />
+        <Route path="/frontend-real-estate-ledger/login" element={<Login />} />
+        <Route
+          path="/frontend-real-estate-ledger/register"
+          element={<Register />}
+        />
+        <Route
+          path="/frontend-real-estate-ledger/properties"
+          element={<Properties />}
+        />
+        <Route
+          path="/frontend-real-estate-ledger/listings"
+          element={<Listings />}
+        />
+          <Route path="/frontend-real-estate-ledger/bidding" element={<Bidding />} />
+          <Route path="/frontend-real-estate-ledger/view-bids" element={<ViewBids />} />
+        <Route
+          path="/frontend-real-estate-ledger/agent-dashboard"
+          element={<AgentDashboard />}
+        />
+        <Route
+          path="/frontend-real-estate-ledger/profile"
+          element={<Profile />}
+        />
       </Routes>
       <Toaster />
     </Layout>
