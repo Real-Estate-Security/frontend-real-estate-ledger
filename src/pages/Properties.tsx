@@ -65,8 +65,13 @@ import {
         // Navigate after success
         navigate("/frontend-real-estate-ledger/listings");
       } catch (error: unknown) {
-        console.error("Error creating listing:", error.message);
-        alert("Failed to create listing: " + error.message);
+        if (error instanceof Error) {
+          console.error("Error creating listing:", error.message);
+          alert("Failed to create listing: " + error.message);
+        } else {
+          console.error("Unknown error creating listing:", error);
+          alert("An unknown error occurred.");
+        }
       }
     };
   
