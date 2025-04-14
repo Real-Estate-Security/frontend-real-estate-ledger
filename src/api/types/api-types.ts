@@ -340,31 +340,46 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description OK */
+                /** @description List of representations */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": components["schemas"]["server.RepresentationData"][];
                     };
                 };
-                /** @description Bad Request */
+                /** @description Invalid request */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
-                /** @description Internal Server Error */
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Internal server error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
             };
@@ -883,6 +898,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/listing/getListings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * display properties
+         * @description get listing by property id
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description Limit (default: 10) */
+                    limit?: number;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.listingDisplayResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/properties": {
         parameters: {
             query?: never;
@@ -1213,6 +1288,22 @@ export interface components {
             start_date?: string;
             status?: string;
         };
+        "server.createListingRequest": {
+            Address: string;
+            AgentEmail: string;
+            AgentFirstName?: string;
+            AgentLastName?: string;
+            Bathrooms: number;
+            Bedrooms: number;
+            City: string;
+            Description?: string;
+            OwnerEmail: string;
+            OwnerFirstName: string;
+            OwnerLastName: string;
+            Price: string;
+            State: string;
+            Zipcode: number;
+        };
         "server.bidResponse": {
             AgentID: number;
             Amount: string;
@@ -1261,6 +1352,21 @@ export interface components {
         "server.getPropertyByIDRequest": {
             PropertyID: number;
             Username: string;
+        };
+        "server.listingDisplayResponse": {
+            address?: string;
+            bathrooms?: number;
+            bedrooms?: number;
+            city?: string;
+            description?: string;
+            email?: string;
+            first_name?: string;
+            last_name?: string;
+            listing_date?: string;
+            listing_status?: string;
+            price?: string;
+            state?: string;
+            zipcode?: number;
         };
         "server.listBidResponse": {
             AgentID: number;

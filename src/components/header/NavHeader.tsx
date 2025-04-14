@@ -20,7 +20,7 @@ export default function NavHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-slate-800 bg-black/95">
       <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-15">
           <Link
             to="/frontend-real-estate-ledger"
             className="flex items-center gap-2"
@@ -30,15 +30,14 @@ export default function NavHeader() {
               Real Estate Ledger
             </span>
           </Link>
-        </div>
-        <div className="flex items-center gap-2">
+
           <Link
-            to="/frontend-real-estate-ledger/properties"
+            to="/frontend-real-estate-ledger/listings"
             className="flex items-center gap-2"
           >
             <House className="h-6 w-6 text-white" />
             <span className="font-bold text-xl hidden sm:inline-block text-white">
-              View Listings
+              Listings
             </span>
           </Link>
         </div>
@@ -79,6 +78,12 @@ export default function NavHeader() {
                 className="text-sm font-medium transition-colors hover:text-blue-400 text-white"
               >
                 Properties
+              </Link>
+              <Link
+                to="/frontend-real-estate-ledger/listings"
+                className="text-sm font-medium transition-colors hover:text-blue-400 text-white"
+              >
+                Listings
               </Link>
               <Link
                 to="/frontend-real-estate-ledger/transactions"
@@ -164,6 +169,14 @@ export default function NavHeader() {
                   >
                     <Building className="h-5 w-5" />
                     Properties
+                  </Link>
+                  <Link
+                    to="/frontend-real-estate-ledger/listings"
+                    className="flex items-center gap-2 text-lg font-medium text-white hover:text-blue-400"
+                    onClick={closeSheet}
+                  >
+                    <Building className="h-5 w-5" />
+                    Listings
                   </Link>
                   <Link
                     to="/frontend-real-estate-ledger/transactions"
