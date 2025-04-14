@@ -22,6 +22,7 @@ function App() {
           <Route path="properties" element={<Properties />} />
           <Route path="listings" element={<Listings />} />
           <Route path="bidding" element={<Bidding />} />
+          <Route path="view-bids" element={<ViewBids />} />
           <Route path="agent-dashboard" element={<AgentDashboard />} />
           <Route path="profile" element={<Profile />} />
         </Route>
