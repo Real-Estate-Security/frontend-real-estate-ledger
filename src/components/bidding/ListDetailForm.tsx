@@ -28,7 +28,7 @@ interface ListingDetailFormProps {
 export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
 
   const [formMyBiddingPrice, setFormMyBiddingPrice] = useState("");
-  const {createBiddingAPI} = useBiddingStore();  
+  const {createBiddingAPI, getLatestBidonListingAPI} = useBiddingStore();  
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -36,13 +36,10 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
 
     try {
       setIsLoading(true);
-      await createBiddingAPI(1, formMyBiddingPrice, 1, 3, undefined);
-/*      await onSubmit({
-        formPropertyAddress: formAssetPropertyAddress,
-        formPropertyCity: formPropertyCity,
-        formPropertyOwner: formPropertyOwner,
-        formPropertyState: formPropertyState
-      });*/
+      console.log("Agent ID from listingFromAPI: ", listingFromAPI.AgentId);
+      await getLatestBidonListingAPI(listingFromAPI.Id);
+      const latestBid = await getLatestBidonListingAPI(listingFromAPI.Id);
+      await createBiddingAPI(listingFromAPI.AgentId, formMyBiddingPrice, listingFromAPI.AgentId, listingFromAPI.Id, latestBid?.ID);
     } catch (error) {
       console.error("Bidding submission error:", error);
       setError("Failed to submit bidding. Please try again.");
@@ -60,12 +57,12 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
         <div className="space-y-5">
           <div className="space-y-2">
               <Label htmlFor="formListingIdLabel" className="font-medium">
-                Listing Id: {listingFromAPI.Id}
+                Listing ID: {listingFromAPI.Id}
               </Label>
             </div>          
             <div className="space-y-2">
                 <Label htmlFor="formListingAgentIdLabel" className="font-medium">
-                Agency Id: {listingFromAPI.AgentId}
+                Agent Id: {listingFromAPI.AgentId}
                 </Label>
             </div>
             <div className="space-y-2">
@@ -80,7 +77,7 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
             </div>
             <div className="space-y-2">
                 <Label htmlFor="formListingDateLabel" className="font-medium">
-                Start Date: {listingFromAPI.ListingDate}
+                Listed Date: {listingFromAPI.ListingDate}
                 </Label>
             </div> 
             <div className="space-y-2">
@@ -90,7 +87,7 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
             </div>    
             <div className="space-y-2">
                 <Label htmlFor="formListingAcceptedBidIdLabel" className="font-medium">
-                Accepted Bit Id: {listingFromAPI.AcceptedBidId}
+                Accepted Bid Id: {listingFromAPI.AcceptedBidId}
                 </Label>
             </div>
             <div className="space-y-2">

@@ -24,21 +24,6 @@ export const usePropertyStore = create<PropertyState>((set) => ({
   propertyFromAPI: null, // Initialize assetFromAPI as null
   getPropertyByIDAPI: async (propertyID, username) => {
     console.log("propertyStore:getPropertyByIDAPI: propertyID=" + propertyID + ", username=" + username)    
-    //Mock the backend call with hard code response. 
-    /*/To Be disabled after the integration with backend is working. 
-    const propertyFromAPI: PropertyFromAPI = {
-      Id: 3,
-      OwnerId: 3,
-      Address: "123 Main Street v2",
-      City: "Austin",
-      State: "TX",
-      ZipCode: 78681,
-      NumOfBedrooms: 5,
-      NumOfBathrooms: 3      
-    }
-    set({ propertyFromAPI }); // Update the state with the mapped asset
-    */
-   //To Be enabled after the integration with backend is working. 
     try {
       const response = await getPropertyByIDApi(propertyID, username);
 
@@ -60,6 +45,5 @@ export const usePropertyStore = create<PropertyState>((set) => ({
     } catch (error) {
       console.error("Error fetching asset by ID:", error);
     }
-    //*/
   },
 }));

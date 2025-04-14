@@ -311,27 +311,6 @@
                 }
             }
         },
-        "/health": {
-            "get": {
-                "description": "Returns the health status of the server",
-                "tags": [
-                    "health"
-                ],
-                "summary": "Health Check",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/bidding/acceptBid": {
             "put": {
                 "description": "accept a bid",
@@ -438,6 +417,11 @@
         },
         "/bidding/listBids": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "listing all bids belonging to a given buyer",
                 "tags": [
                     "bidding"
@@ -491,13 +475,13 @@
                 }
             }
         },
-        "/bidding/listBidsOnListing": {
+        "/bidding/listLatestBidOnListing": {
             "post": {
-                "description": "listing all bids with a given listing",
+                "description": "listing most recent bid on a listing",
                 "tags": [
                     "bidding"
                 ],
-                "summary": "given listing, list all bids with that as the listing",
+                "summary": "given listing, list most recent bid on a listing",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -506,19 +490,16 @@
                             }
                         }
                     },
-                    "description": "listing all bids that have a specific listing",
+                    "description": "listing most recent bid on a specific listing",
                     "required": true
                 },
                 "responses": {
                     "200": {
-                        "description": "list of bids",
+                        "description": "bid",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/server.listBidResponse"
-                                    }
+                                    "$ref": "#/components/schemas/server.listBidResponse"
                                 }
                             }
                         }
@@ -598,22 +579,27 @@
                 }
             }
         },
-        "/listing/getListingByPropertyID": {
+        "/bidding/updateBidStatus": {
             "post": {
-                "description": "get listing by property id",
-                "tags": [
-                    "listing"
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
-                "summary": "get listing by property id",
+                "description": "update a bid's status",
+                "tags": [
+                    "bidding"
+                ],
+                "summary": "update a bid's status",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/server.getListingByIDRequest"
+                                "$ref": "#/components/schemas/server.updateBidStatusRequest"
                             }
                         }
                     },
-                    "description": "get listig by property id",
+                    "description": "update a bid status",
                     "required": true
                 },
                 "responses": {
@@ -622,7 +608,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/server.listingResponse"
+                                    "type": "string"
                                 }
                             }
                         }
@@ -650,30 +636,117 @@
                 }
             }
         },
-        "/listing/getListings": {
+        "/health": {
             "get": {
-                "description": "get listing by property id",
+                "description": "Returns the health status of the server",
                 "tags": [
-                    "listing"
+                    "health"
                 ],
-                "summary": "display properties",
-                "parameters": [
-                    {
-                        "description": "Limit (default: 10)",
-                        "name": "limit",
-                        "in": "query",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
+                "summary": "Health Check",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/server.listingDisplayResponse"
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hello-world": {
+            "get": {
+                "description": "HelloWorld example",
+                "tags": [
+                    "example"
+                ],
+                "summary": "HelloWorld example",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/listing": {
+            "get": {
+                "description": "Get listings with optional pagination",
+                "tags": [
+                    "listing"
+                ],
+                "summary": "Display properties",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/server.listingDisplayResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/listing/getListingByPropertyID": {
+            "post": {
+                "description": "get listing by property id",
+                "tags": [
+                    "listing"
+                ],
+                "summary": "get listing by property id",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.getListingByIDRequest"
+                            }
+                        }
+                    },
+                    "description": "get listig by property id",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/server.listingResponse"
                                 }
                             }
                         }
@@ -794,27 +867,6 @@
                     },
                     "500": {
                         "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/hello-world": {
-            "get": {
-                "description": "HelloWorld example",
-                "tags": [
-                    "example"
-                ],
-                "summary": "HelloWorld example",
-                "responses": {
-                    "200": {
-                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1045,6 +1097,63 @@
                     }
                 }
             },
+            "server.bidResponse": {
+                "type": "object",
+                "required": [
+                    "AgentID",
+                    "Amount",
+                    "BuyerID",
+                    "ID",
+                    "ListingID",
+                    "PreviousBidID"
+                ],
+                "properties": {
+                    "AgentID": {
+                        "type": "integer"
+                    },
+                    "Amount": {
+                        "type": "string"
+                    },
+                    "BuyerID": {
+                        "type": "integer"
+                    },
+                    "ID": {
+                        "type": "integer"
+                    },
+                    "ListingID": {
+                        "type": "integer"
+                    },
+                    "PreviousBidID": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "server.createBidRequest": {
+                "type": "object",
+                "required": [
+                    "AgentID",
+                    "Amount",
+                    "BuyerID",
+                    "ListingID"
+                ],
+                "properties": {
+                    "AgentID": {
+                        "type": "integer"
+                    },
+                    "Amount": {
+                        "type": "string"
+                    },
+                    "BuyerID": {
+                        "type": "integer"
+                    },
+                    "ListingID": {
+                        "type": "integer"
+                    },
+                    "PreviousBidID": {
+                        "type": "integer"
+                    }
+                }
+            },
             "server.createListingRequest": {
                 "type": "object",
                 "required": [
@@ -1101,63 +1210,6 @@
                         "type": "string"
                     },
                     "Zipcode": {
-                        "type": "integer"
-                    }
-                }
-            },
-            "server.bidResponse": {
-                "type": "object",
-                "required": [
-                    "AgentID",
-                    "Amount",
-                    "BuyerID",
-                    "ID",
-                    "ListingID",
-                    "PreviousBidID"
-                ],
-                "properties": {
-                    "AgentID": {
-                        "type": "integer"
-                    },
-                    "Amount": {
-                        "type": "string"
-                    },
-                    "BuyerID": {
-                        "type": "integer"
-                    },
-                    "ID": {
-                        "type": "integer"
-                    },
-                    "ListingID": {
-                        "type": "integer"
-                    },
-                    "PreviousBidID": {
-                        "type": "integer"
-                    }
-                }
-            },
-            "server.createBidRequest": {
-                "type": "object",
-                "required": [
-                    "AgentID",
-                    "Amount",
-                    "BuyerID",
-                    "ListingID"
-                ],
-                "properties": {
-                    "AgentID": {
-                        "type": "integer"
-                    },
-                    "Amount": {
-                        "type": "string"
-                    },
-                    "BuyerID": {
-                        "type": "integer"
-                    },
-                    "ListingID": {
-                        "type": "integer"
-                    },
-                    "PreviousBidID": {
                         "type": "integer"
                     }
                 }
@@ -1232,50 +1284,6 @@
                     }
                 }
             },
-            "server.listingDisplayResponse": {
-                "type": "object",
-                "properties": {
-                    "address": {
-                        "type": "string"
-                    },
-                    "bathrooms": {
-                        "type": "integer"
-                    },
-                    "bedrooms": {
-                        "type": "integer"
-                    },
-                    "city": {
-                        "type": "string"
-                    },
-                    "description": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "first_name": {
-                        "type": "string"
-                    },
-                    "last_name": {
-                        "type": "string"
-                    },
-                    "listing_date": {
-                        "type": "string"
-                    },
-                    "listing_status": {
-                        "type": "string"
-                    },
-                    "price": {
-                        "type": "string"
-                    },
-                    "state": {
-                        "type": "string"
-                    },
-                    "zipcode": {
-                        "type": "integer"
-                    }
-                }
-            },
             "server.listBidResponse": {
                 "type": "object",
                 "required": [
@@ -1325,15 +1333,55 @@
             "server.listBidsRequest": {
                 "type": "object",
                 "required": [
-                    "BuyerID",
                     "Username"
                 ],
                 "properties": {
-                    "BuyerID": {
-                        "type": "integer"
-                    },
                     "Username": {
                         "type": "string"
+                    }
+                }
+            },
+            "server.listingDisplayResponse": {
+                "type": "object",
+                "properties": {
+                    "address": {
+                        "type": "string"
+                    },
+                    "bathrooms": {
+                        "type": "integer"
+                    },
+                    "bedrooms": {
+                        "type": "integer"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "listing_date": {
+                        "type": "string"
+                    },
+                    "listing_status": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "zipcode": {
+                        "type": "integer"
                     }
                 }
             },
@@ -1468,6 +1516,21 @@
                         "type": "string"
                     },
                     "start_date": {
+                        "type": "string"
+                    }
+                }
+            },
+            "server.updateBidStatusRequest": {
+                "type": "object",
+                "required": [
+                    "BidId",
+                    "NewStatus"
+                ],
+                "properties": {
+                    "BidId": {
+                        "type": "integer"
+                    },
+                    "NewStatus": {
                         "type": "string"
                     }
                 }

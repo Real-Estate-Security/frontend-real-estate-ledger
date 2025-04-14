@@ -340,46 +340,31 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description List of representations */
+                /** @description OK */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["server.RepresentationData"][];
+                        "application/json": string;
                     };
                 };
-                /** @description Invalid request */
+                /** @description Bad Request */
                 400: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            [key: string]: unknown;
-                        };
+                        "application/json": string;
                     };
                 };
-                /** @description Unauthorized */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            [key: string]: unknown;
-                        };
-                    };
-                };
-                /** @description Internal server error */
+                /** @description Internal Server Error */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            [key: string]: unknown;
-                        };
+                        "application/json": string;
                     };
                 };
             };
@@ -515,7 +500,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/bidding/listBidsOnListing": {
+    "/bidding/listLatestBidOnListing": {
         parameters: {
             query?: never;
             header?: never;
@@ -525,8 +510,8 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * given listing, list all bids with that as the listing
-         * @description listing all bids with a given listing
+         * given listing, list most recent bid on a listing
+         * @description listing most recent bid on a listing
          */
         post: {
             parameters: {
@@ -535,20 +520,20 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            /** @description listing all bids that have a specific listing */
+            /** @description listing most recent bid on a specific listing */
             requestBody: {
                 content: {
                     "application/json": components["schemas"]["server.listBidsOnListingRequest"];
                 };
             };
             responses: {
-                /** @description list of bids */
+                /** @description bid */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["server.listBidResponse"][];
+                        "application/json": components["schemas"]["server.listBidResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -639,6 +624,68 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/bidding/updateBidStatus": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * update a bid's status
+         * @description update a bid's status
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description update a bid status */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.updateBidStatusRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -717,6 +764,63 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/listing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Display properties
+         * @description Get listings with optional pagination
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.listingDisplayResponse"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/listing/getListingByPropertyID": {
         parameters: {
             query?: never;
@@ -773,66 +877,6 @@ export interface paths {
                 };
             };
         };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/listing/getListings": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * display properties
-         * @description get listing by property id
-         */
-        get: {
-            parameters: {
-                query?: {
-                    /** @description Limit (default: 10) */
-                    limit?: number;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["server.listingDisplayResponse"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": string;
-                    };
-                };
-                /** @description Internal Server Error */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": string;
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -1169,6 +1213,21 @@ export interface components {
             start_date?: string;
             status?: string;
         };
+        "server.bidResponse": {
+            AgentID: number;
+            Amount: string;
+            BuyerID: number;
+            ID: number;
+            ListingID: number;
+            PreviousBidID: number;
+        };
+        "server.createBidRequest": {
+            AgentID: number;
+            Amount: string;
+            BuyerID: number;
+            ListingID: number;
+            PreviousBidID?: number;
+        };
         "server.createListingRequest": {
             Address: string;
             AgentEmail: string;
@@ -1184,21 +1243,6 @@ export interface components {
             Price: string;
             State: string;
             Zipcode: number;
-        };
-        "server.bidResponse": {
-            AgentID: number;
-            Amount: string;
-            BuyerID: number;
-            ID: number;
-            ListingID: number;
-            PreviousBidID: number;
-        };
-        "server.createBidRequest": {
-            AgentID: number;
-            Amount: string;
-            BuyerID: number;
-            ListingID: number;
-            PreviousBidID?: number;
         };
         "server.createUserRequest": {
             dob: string;
@@ -1218,6 +1262,21 @@ export interface components {
             PropertyID: number;
             Username: string;
         };
+        "server.listBidResponse": {
+            AgentID: number;
+            Amount: string;
+            BuyerID: number;
+            ID: number;
+            ListingID: number;
+            PreviousBidID: number;
+            Status: string;
+        };
+        "server.listBidsOnListingRequest": {
+            ListingID: number;
+        };
+        "server.listBidsRequest": {
+            Username: string;
+        };
         "server.listingDisplayResponse": {
             address?: string;
             bathrooms?: number;
@@ -1232,22 +1291,6 @@ export interface components {
             price?: string;
             state?: string;
             zipcode?: number;
-        };
-        "server.listBidResponse": {
-            AgentID: number;
-            Amount: string;
-            BuyerID: number;
-            ID: number;
-            ListingID: number;
-            PreviousBidID: number;
-            Status: string;
-        };
-        "server.listBidsOnListingRequest": {
-            ListingID: number;
-        };
-        "server.listBidsRequest": {
-            BuyerID: number;
-            Username: string;
         };
         "server.listingResponse": {
             AcceptedBidID: number;
@@ -1284,6 +1327,10 @@ export interface components {
             client_username: string;
             end_date: string;
             start_date: string;
+        };
+        "server.updateBidStatusRequest": {
+            BidId: number;
+            NewStatus: string;
         };
         "server.userMeResponse": {
             user?: components["schemas"]["server.userResponse"];
