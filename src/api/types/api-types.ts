@@ -38,6 +38,9 @@ export interface paths {
                         "application/json": {
                             [key: string]: unknown;
                         };
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
                     };
                 };
                 /** @description Invalid request */

@@ -49,6 +49,8 @@
                                 "schema": {
                                     "type": "object",
                                     "additionalProperties": true
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -58,6 +60,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true
                                     "type": "object",
                                     "additionalProperties": true
                                 }

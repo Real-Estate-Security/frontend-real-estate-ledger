@@ -66,8 +66,18 @@ export default function AgentDashboard() {
     }
   };
 
-  const canManageRepresentations =
-    user?.role === "user" || user?.role === "admin";
+  // Check if the current user is the client of a representation
+  const isClientOfRepresentation = (representation: Representation) => {
+    return user?.username === representation.client_username;
+  };
+
+  // Only allow management if the user is the client of the representation
+  const canManageRepresentation = (representation: Representation) => {
+    return (
+      isClientOfRepresentation(representation) &&
+      representation.status === "pending"
+    );
+  };
 
   return (
     <div className="container mx-auto py-8">
@@ -81,7 +91,7 @@ export default function AgentDashboard() {
         representations={representations}
         onAccept={handleAccept}
         onDecline={handleDecline}
-        canManageRepresentations={canManageRepresentations}
+        canManageRepresentation={canManageRepresentation}
       />
     </div>
   );

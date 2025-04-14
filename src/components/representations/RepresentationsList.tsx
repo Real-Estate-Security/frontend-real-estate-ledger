@@ -5,14 +5,14 @@ interface RepresentationsListProps {
   representations: Representation[];
   onAccept: (id: number) => void;
   onDecline: (id: number) => void;
-  canManageRepresentations: boolean;
+  canManageRepresentation: (representation: Representation) => boolean;
 }
 
 export function RepresentationsList({
   representations,
   onAccept,
   onDecline,
-  canManageRepresentations,
+  canManageRepresentation,
 }: RepresentationsListProps) {
   return (
     <div className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm">
@@ -25,13 +25,13 @@ export function RepresentationsList({
         </p>
       ) : (
         <div className="space-y-4">
-          {representations.map((rep) => (
+          {representations.map((representation) => (
             <RepresentationCard
-              key={rep.id}
-              representation={rep}
+              key={representation.id}
+              representation={representation}
               onAccept={onAccept}
               onDecline={onDecline}
-              canManageRepresentations={canManageRepresentations}
+              canManageRepresentations={canManageRepresentation(representation)}
             />
           ))}
         </div>
