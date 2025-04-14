@@ -24,7 +24,7 @@ export function ViewBiddingForm() {
     };
 
     fetchData();
-  }, []);
+  }, );
 
   useEffect(() => {
     if (listBidsResponseFromAPI) {
