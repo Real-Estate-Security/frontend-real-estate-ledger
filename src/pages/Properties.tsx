@@ -18,13 +18,61 @@ import {
         agentfirstName: string;
         agentlastName: string;
         agentEmail: string;
+        listingPrice: number;
         address: string;
+        city: string;
+        state: string;
+        zip: number;
         description: string;
         bathrooms: number;
         bedrooms: number;
     }) => {
-      navigate("/frontend-real-estate-ledger/");
-      console.log("Listing registration data:", userData);
+      // navigate("/frontend-real-estate-ledger/");
+      // console.log("Listing registration data:", userData);
+      try {
+        const res = await fetch("http://localhost:8000/properties", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            OwnerFirstName: userData.userfirstName,
+            OwnerLastName: userData.userlastName,
+            OwnerEmail: userData.userEmail,
+            AgentFirstName: userData.agentfirstName,
+            AgentLastName: userData.agentlastName,
+            AgentEmail: userData.agentEmail,
+            Price: userData.listingPrice.toString(),
+            Address: userData.address,
+            City: userData.city,
+            State: userData.state,
+            Zipcode: userData.zip,
+            Description: userData.description,
+            Bedrooms: userData.bedrooms,
+            Bathrooms: userData.bathrooms,
+          }),
+        });
+    
+        if (!res.ok) {
+          const errorRes = await res.json();
+          throw new Error(errorRes.error || "Failed to create listing");
+        }
+    
+        const data = await res.json();
+        console.log("Successfully created listing:", data);
+        alert("Listing created successfully!");
+    
+        // Navigate after success
+        navigate("/frontend-real-estate-ledger/listings");
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error("Error creating listing:", error.message);
+          alert("Failed to create listing: " + error.message);
+        } else {
+          console.error("Unknown error creating listing:", error);
+          alert("An unknown error occurred.");
+        }
+      }
     };
   
     return (

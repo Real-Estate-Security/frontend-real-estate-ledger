@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { CardFooter, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
 //   Select,
 //   SelectContent,
@@ -10,7 +11,8 @@ import {
 //   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { Mail, UserPlus, Bed, Bath, MapPinHouse, Pencil } from "lucide-react";
+import { Mail, UserPlus, Bed, Bath, MapPinHouse, Pencil, DollarSign } from "lucide-react";
+// import { StringToBoolean } from "class-variance-authority/types";
 // import {
 //   Popover,
 //   PopoverContent,
@@ -25,7 +27,11 @@ interface ListingFormProps {
     agentfirstName: string;
     agentlastName: string;
     agentEmail: string;
+    listingPrice: number;
     address: string;
+    city: string;
+    state: string;
+    zip: number;
     description: string;
     bathrooms: number;
     bedrooms: number;
@@ -41,7 +47,11 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
   const [agentlastName, setAgentLastName] = useState("");
   const [agentEmail, setAgentEmail] = useState("");
   const [description, setDescription] = useState("");
+  const [listingPrice, setListingPrice] = useState<number>(0);
   const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState<number>(0);
   const [bathrooms, setBathrooms] = useState<number>(0);
   const [bedrooms, setBedrooms] = useState<number>(0);
   
@@ -54,10 +64,16 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
     const fname = agentfirstName;
     const lname = agentlastName;
 
-    if ((fname == "") || (lname == "")) {
-        setError("");
-        return true;
+    // if ((fname == "") || (lname == "")) {
+    //     setError("");
+    //     return true;
+    // }
+    if (!fname || !lname) {
+      setError("Agent name is required.");
+      return false;
     }
+    setError("");
+    return true;
 
   };
 
@@ -73,7 +89,11 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
         agentfirstName,
         agentlastName,
         agentEmail,
+        listingPrice,
         address,
+        city,
+        state,
+        zip,
         description,
         bathrooms,
         bedrooms
@@ -84,6 +104,12 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  //special handler for Description with Textarea
+
+  const handleDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value); 
   };
 
   return (
@@ -198,6 +224,26 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
             </div>
             </div>
 
+          {/* Listing Price */}
+          <div className="space-y-2">
+            <Label htmlFor="listingPrice" className="font-medium">
+              Price of Listing
+            </Label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                <DollarSign className="h-5 w-5" />
+              </div>
+              <Input
+                id="listingPrice"
+                type="number"
+                required
+                value={listingPrice}
+                onChange={(e) => setListingPrice(Number(e.target.value))}
+                className="pl-10 bg-gray-50 focus:bg-white transition-colors"
+              />
+            </div>
+            </div>
+
          <div className="space-y-5">
           {/* Property Address */}
             <div className="space-y-2">
@@ -217,8 +263,66 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
                   className="pl-10 bg-gray-50 focus:bg-white transition-colors"
                 />
               </div>
+          </div>
+
+          <div className="space-y-5">
+          {/* Property City */}
+            <div className="space-y-2">
+              <Label htmlFor="city" className="font-medium">
+                City
+              </Label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                  <MapPinHouse className="h-5 w-5" />
+                </div>
+                <Input
+                  id="city"
+                  placeholder="Enter city"
+                  required
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  className="pl-10 bg-gray-50 focus:bg-white transition-colors"
+                />
               </div>
-    
+          </div>
+
+          {/* Property Zip Code */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="state" className="font-medium">
+                State
+              </Label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                  <MapPinHouse className="h-5 w-5" />
+                </div>
+                <Input
+                  id="state"
+                  placeholder="Enter State"
+                  required
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  className="pl-10 bg-gray-50 focus:bg-white transition-colors"
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="zip" className="font-medium">
+                Zip Code
+              </Label>
+              <Input
+                id="zip"
+                placeholder="Zipcode"
+                required
+                value={zip}
+                onChange={(e) => setZip(Number(e.target.value))}
+                className="bg-gray-50 focus:bg-white transition-colors"
+              />
+            </div>
+          </div>
+          </div>
+          
           {/* Bedrooms */}
           <div className="space-y-2">
             <Label htmlFor="bedrooms" className="font-medium">
@@ -270,16 +374,13 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400 z-10">
                 <Pencil className="h-5 w-5" />
               </div>
-            <textarea id="description" placeholder="Please enter a short description of the property you are listing.">
-              <Input
-                id="description"
+            <Textarea
+                id="description" 
                 placeholder="Please enter a short description of the property you are listing."
-                required
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                  value={description}
+                onChange={handleDescription}
                 className="pl-10 bg-gray-50 focus:bg-white transition-colors"
-                />
-            </textarea>
+              />
             </div>
           </div>
         
@@ -311,7 +412,7 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
         <div className="text-center text-sm text-gray-600">
           Want to place a bid on an existing listing?{" "}
           <a
-            href="/frontend-real-estate-ledger/login"
+            href="/frontend-real-estate-ledger/listings"
             className="text-primary font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-sm"
             tabIndex={0}
           >

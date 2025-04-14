@@ -311,6 +311,27 @@
                 }
             }
         },
+        "/health": {
+            "get": {
+                "description": "Returns the health status of the server",
+                "tags": [
+                    "health"
+                ],
+                "summary": "Health Check",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/bidding/acceptBid": {
             "put": {
                 "description": "accept a bid",
@@ -577,48 +598,6 @@
                 }
             }
         },
-        "/health": {
-            "get": {
-                "description": "Returns the health status of the server",
-                "tags": [
-                    "health"
-                ],
-                "summary": "Health Check",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/hello-world": {
-            "get": {
-                "description": "HelloWorld example",
-                "tags": [
-                    "example"
-                ],
-                "summary": "HelloWorld example",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/listing/getListingByPropertyID": {
             "post": {
                 "description": "get listing by property id",
@@ -644,6 +623,109 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/server.listingResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/listing/getListings": {
+            "get": {
+                "description": "get listing by property id",
+                "tags": [
+                    "listing"
+                ],
+                "summary": "display properties",
+                "parameters": [
+                    {
+                        "description": "Limit (default: 10)",
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/server.listingDisplayResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/properties": {
+            "post": {
+                "description": "creating a listing for a property",
+                "tags": [
+                    "properties"
+                ],
+                "summary": "given listing, create property if doesn't exist and then create listing for that property",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.createListingRequest"
+                            }
+                        }
+                    },
+                    "description": "creating a listing for a property",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
                                 }
                             }
                         }
@@ -712,6 +794,27 @@
                     },
                     "500": {
                         "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hello-world": {
+            "get": {
+                "description": "HelloWorld example",
+                "tags": [
+                    "example"
+                ],
+                "summary": "HelloWorld example",
+                "responses": {
+                    "200": {
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -942,6 +1045,66 @@
                     }
                 }
             },
+            "server.createListingRequest": {
+                "type": "object",
+                "required": [
+                    "Address",
+                    "AgentEmail",
+                    "Bathrooms",
+                    "Bedrooms",
+                    "City",
+                    "OwnerEmail",
+                    "OwnerFirstName",
+                    "OwnerLastName",
+                    "Price",
+                    "State",
+                    "Zipcode"
+                ],
+                "properties": {
+                    "Address": {
+                        "type": "string"
+                    },
+                    "AgentEmail": {
+                        "type": "string"
+                    },
+                    "AgentFirstName": {
+                        "type": "string"
+                    },
+                    "AgentLastName": {
+                        "type": "string"
+                    },
+                    "Bathrooms": {
+                        "type": "integer"
+                    },
+                    "Bedrooms": {
+                        "type": "integer"
+                    },
+                    "City": {
+                        "type": "string"
+                    },
+                    "Description": {
+                        "type": "string"
+                    },
+                    "OwnerEmail": {
+                        "type": "string"
+                    },
+                    "OwnerFirstName": {
+                        "type": "string"
+                    },
+                    "OwnerLastName": {
+                        "type": "string"
+                    },
+                    "Price": {
+                        "type": "string"
+                    },
+                    "State": {
+                        "type": "string"
+                    },
+                    "Zipcode": {
+                        "type": "integer"
+                    }
+                }
+            },
             "server.bidResponse": {
                 "type": "object",
                 "required": [
@@ -1066,6 +1229,50 @@
                     },
                     "Username": {
                         "type": "string"
+                    }
+                }
+            },
+            "server.listingDisplayResponse": {
+                "type": "object",
+                "properties": {
+                    "address": {
+                        "type": "string"
+                    },
+                    "bathrooms": {
+                        "type": "integer"
+                    },
+                    "bedrooms": {
+                        "type": "integer"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "listing_date": {
+                        "type": "string"
+                    },
+                    "listing_status": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "zipcode": {
+                        "type": "integer"
                     }
                 }
             },
