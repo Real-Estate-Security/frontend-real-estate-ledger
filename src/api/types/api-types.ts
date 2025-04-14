@@ -38,9 +38,6 @@ export interface paths {
                         "application/json": {
                             [key: string]: unknown;
                         };
-                        "application/json": {
-                            [key: string]: unknown;
-                        };
                     };
                 };
                 /** @description Invalid request */
@@ -767,6 +764,63 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/listing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Display properties
+         * @description Get listings with optional pagination
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.listingDisplayResponse"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/listing/getListingByPropertyID": {
         parameters: {
             query?: never;
@@ -801,6 +855,68 @@ export interface paths {
                     };
                     content: {
                         "application/json": components["schemas"]["server.listingResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/properties": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * given listing, create property if doesn't exist and then create listing for that property
+         * @description creating a listing for a property
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description creating a listing for a property */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.createListingRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
                     };
                 };
                 /** @description Bad Request */
@@ -1112,6 +1228,22 @@ export interface components {
             ListingID: number;
             PreviousBidID?: number;
         };
+        "server.createListingRequest": {
+            Address: string;
+            AgentEmail: string;
+            AgentFirstName?: string;
+            AgentLastName?: string;
+            Bathrooms: number;
+            Bedrooms: number;
+            City: string;
+            Description?: string;
+            OwnerEmail: string;
+            OwnerFirstName: string;
+            OwnerLastName: string;
+            Price: string;
+            State: string;
+            Zipcode: number;
+        };
         "server.createUserRequest": {
             dob: string;
             email: string;
@@ -1144,6 +1276,21 @@ export interface components {
         };
         "server.listBidsRequest": {
             Username: string;
+        };
+        "server.listingDisplayResponse": {
+            address?: string;
+            bathrooms?: number;
+            bedrooms?: number;
+            city?: string;
+            description?: string;
+            email?: string;
+            first_name?: string;
+            last_name?: string;
+            listing_date?: string;
+            listing_status?: string;
+            price?: string;
+            state?: string;
+            zipcode?: number;
         };
         "server.listingResponse": {
             AcceptedBidID: number;
