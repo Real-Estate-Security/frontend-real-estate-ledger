@@ -314,6 +314,331 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/bidding/acceptBid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * accept a bid
+         * @description accept a bid
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description accept a bid */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.rejectBidRequest"];
+                };
+            };
+            responses: {
+                /** @description List of representations */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.RepresentationData"][];
+                    };
+                };
+                /** @description Invalid request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bidding/createBid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * create a bid
+         * @description create a bid
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description create a bid */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.createBidRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.bidResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bidding/listBids": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * given user, list all bid with them as buyer
+         * @description listing all bids belonging to a given buyer
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description listing all bids belonging to a given buyer */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.listBidsRequest"];
+                };
+            };
+            responses: {
+                /** @description list of bids */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.listBidResponse"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bidding/listBidsOnListing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * given listing, list all bids with that as the listing
+         * @description listing all bids with a given listing
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description listing all bids that have a specific listing */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.listBidsOnListingRequest"];
+                };
+            };
+            responses: {
+                /** @description list of bids */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["server.listBidResponse"][];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/bidding/rejectBid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * reject a bid
+         * @description reject a bid
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description reject a bid */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.rejectBidRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -860,6 +1185,21 @@ export interface components {
             State: string;
             Zipcode: number;
         };
+        "server.bidResponse": {
+            AgentID: number;
+            Amount: string;
+            BuyerID: number;
+            ID: number;
+            ListingID: number;
+            PreviousBidID: number;
+        };
+        "server.createBidRequest": {
+            AgentID: number;
+            Amount: string;
+            BuyerID: number;
+            ListingID: number;
+            PreviousBidID?: number;
+        };
         "server.createUserRequest": {
             dob: string;
             email: string;
@@ -893,6 +1233,22 @@ export interface components {
             state?: string;
             zipcode?: number;
         };
+        "server.listBidResponse": {
+            AgentID: number;
+            Amount: string;
+            BuyerID: number;
+            ID: number;
+            ListingID: number;
+            PreviousBidID: number;
+            Status: string;
+        };
+        "server.listBidsOnListingRequest": {
+            ListingID: number;
+        };
+        "server.listBidsRequest": {
+            BuyerID: number;
+            Username: string;
+        };
         "server.listingResponse": {
             AcceptedBidID: number;
             AgentID: number;
@@ -920,6 +1276,9 @@ export interface components {
             Owner: number;
             State: string;
             ZipCode: number;
+        };
+        "server.rejectBidRequest": {
+            ID: number;
         };
         "server.requestAgentRepresentationRequest": {
             client_username: string;

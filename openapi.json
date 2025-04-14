@@ -332,16 +332,261 @@
                 }
             }
         },
-        "/hello-world": {
-            "get": {
-                "description": "HelloWorld example",
+        "/bidding/acceptBid": {
+            "put": {
+                "description": "accept a bid",
                 "tags": [
-                    "example"
+                    "bidding"
                 ],
-                "summary": "HelloWorld example",
+                "summary": "accept a bid",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.rejectBidRequest"
+                            }
+                        }
+                    },
+                    "description": "accept a bid",
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/bidding/createBid": {
+            "post": {
+                "description": "create a bid",
+                "tags": [
+                    "bidding"
+                ],
+                "summary": "create a bid",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.createBidRequest"
+                            }
+                        }
+                    },
+                    "description": "create a bid",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/server.bidResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/bidding/listBids": {
+            "post": {
+                "description": "listing all bids belonging to a given buyer",
+                "tags": [
+                    "bidding"
+                ],
+                "summary": "given user, list all bid with them as buyer",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.listBidsRequest"
+                            }
+                        }
+                    },
+                    "description": "listing all bids belonging to a given buyer",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "list of bids",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/server.listBidResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/bidding/listBidsOnListing": {
+            "post": {
+                "description": "listing all bids with a given listing",
+                "tags": [
+                    "bidding"
+                ],
+                "summary": "given listing, list all bids with that as the listing",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.listBidsOnListingRequest"
+                            }
+                        }
+                    },
+                    "description": "listing all bids that have a specific listing",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "list of bids",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/server.listBidResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/bidding/rejectBid": {
+            "put": {
+                "description": "reject a bid",
+                "tags": [
+                    "bidding"
+                ],
+                "summary": "reject a bid",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.rejectBidRequest"
+                            }
+                        }
+                    },
+                    "description": "reject a bid",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -549,6 +794,27 @@
                     },
                     "500": {
                         "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hello-world": {
+            "get": {
+                "description": "HelloWorld example",
+                "tags": [
+                    "example"
+                ],
+                "summary": "HelloWorld example",
+                "responses": {
+                    "200": {
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -839,6 +1105,63 @@
                     }
                 }
             },
+            "server.bidResponse": {
+                "type": "object",
+                "required": [
+                    "AgentID",
+                    "Amount",
+                    "BuyerID",
+                    "ID",
+                    "ListingID",
+                    "PreviousBidID"
+                ],
+                "properties": {
+                    "AgentID": {
+                        "type": "integer"
+                    },
+                    "Amount": {
+                        "type": "string"
+                    },
+                    "BuyerID": {
+                        "type": "integer"
+                    },
+                    "ID": {
+                        "type": "integer"
+                    },
+                    "ListingID": {
+                        "type": "integer"
+                    },
+                    "PreviousBidID": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "server.createBidRequest": {
+                "type": "object",
+                "required": [
+                    "AgentID",
+                    "Amount",
+                    "BuyerID",
+                    "ListingID"
+                ],
+                "properties": {
+                    "AgentID": {
+                        "type": "integer"
+                    },
+                    "Amount": {
+                        "type": "string"
+                    },
+                    "BuyerID": {
+                        "type": "integer"
+                    },
+                    "ListingID": {
+                        "type": "integer"
+                    },
+                    "PreviousBidID": {
+                        "type": "integer"
+                    }
+                }
+            },
             "server.createUserRequest": {
                 "type": "object",
                 "required": [
@@ -953,6 +1276,67 @@
                     }
                 }
             },
+            "server.listBidResponse": {
+                "type": "object",
+                "required": [
+                    "AgentID",
+                    "Amount",
+                    "BuyerID",
+                    "ID",
+                    "ListingID",
+                    "PreviousBidID",
+                    "Status"
+                ],
+                "properties": {
+                    "AgentID": {
+                        "type": "integer"
+                    },
+                    "Amount": {
+                        "type": "string"
+                    },
+                    "BuyerID": {
+                        "type": "integer"
+                    },
+                    "ID": {
+                        "type": "integer"
+                    },
+                    "ListingID": {
+                        "type": "integer"
+                    },
+                    "PreviousBidID": {
+                        "type": "integer"
+                    },
+                    "Status": {
+                        "type": "string"
+                    }
+                }
+            },
+            "server.listBidsOnListingRequest": {
+                "type": "object",
+                "required": [
+                    "ListingID"
+                ],
+                "properties": {
+                    "ListingID": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "server.listBidsRequest": {
+                "type": "object",
+                "required": [
+                    "BuyerID",
+                    "Username"
+                ],
+                "properties": {
+                    "BuyerID": {
+                        "type": "integer"
+                    },
+                    "Username": {
+                        "type": "string"
+                    }
+                }
+            },
             "server.listingResponse": {
                 "type": "object",
                 "required": [
@@ -1054,6 +1438,17 @@
                         "type": "string"
                     },
                     "ZipCode": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "server.rejectBidRequest": {
+                "type": "object",
+                "required": [
+                    "ID"
+                ],
+                "properties": {
+                    "ID": {
                         "type": "integer"
                     }
                 }

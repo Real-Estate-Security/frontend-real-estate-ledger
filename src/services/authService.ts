@@ -28,7 +28,7 @@ export const register = async (
   email: string,
   password: string,
   username: string,
-  role: "user" | "agent",
+  role: "user" | "agent" | "admin",
   dateOfBirth: Date
 ): Promise<UserResponse> => {
   const response = await axios.post<UserResponse>(
