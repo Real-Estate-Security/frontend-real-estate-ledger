@@ -11,7 +11,7 @@ export default function ViewBids() {
       <Card className="w-[770px] mx-auto"> {/* 700px + 10px extra */}
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">
-            View Bids
+            View My Bids
           </CardTitle>
         </CardHeader>
         <ViewBiddingForm />

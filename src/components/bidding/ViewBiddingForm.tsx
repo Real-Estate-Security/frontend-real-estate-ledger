@@ -3,7 +3,7 @@ import { CardContent } from "@/components/ui/card";
 import { useBiddingStore } from "@/store/biddingStore";
 
 export function ViewBiddingForm() {
-  const { getBidingListByBuyerIdAPI, listBidsResponseFromAPI, rejectBidAPI } = useBiddingStore();  
+  const { getBidingListByBuyerIdAPI, listBidsResponseFromAPI, updateBidStatusAPI } = useBiddingStore();  
   const [isLoading, setIsLoading] = useState(true);
   const [statusMap, setStatusMap] = useState<{ [id: number]: string }>({});
   const [errorForUI, setErrorForUI] = useState("");
@@ -35,6 +35,7 @@ export function ViewBiddingForm() {
       });
       setStatusMap(initialStatus);
     }
+    
   }, [listBidsResponseFromAPI]);
 
   const handleStatusChange = async (id: number, newStatus: string) => {
@@ -47,7 +48,7 @@ export function ViewBiddingForm() {
         return { ...prev, [id]: newStatus };
       });
 
-      await rejectBidAPI(id);
+      await updateBidStatusAPI(id, newStatus);
       console.log("handleStatusChange Status changed for id=", id, ", new status =", newStatus);
       setStatusMessageForUI(
         <>
@@ -78,11 +79,11 @@ export function ViewBiddingForm() {
             <table className="min-w-full text-sm text-left text-gray-700">
               <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
                 <tr>
-                  <th className="px-4 py-2">ID</th>
-                  <th className="px-4 py-2">Name</th>
-                  <th className="px-4 py-2">Email</th>
-                  <th className="px-4 py-2">Role</th>
-                  <th className="px-4 py-2">Status</th>
+                  <th className="px-4 py-2">Bid ID</th>
+                  <th className="px-4 py-2">Bid Amount</th>
+                  <th className="px-4 py-2">Buyer ID</th>
+                  <th className="px-4 py-2">Listing ID</th>
+                  <th className="px-4 py-2">Bid Status</th>
                 </tr>
               </thead>
               <tbody>

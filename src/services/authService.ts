@@ -51,3 +51,16 @@ export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
 };
+
+// getCurrentLoginUser function
+export const getCurrentLoginUser = (): Promise<UserResponse> => {
+  const currentLoginUserString = localStorage.getItem("user");
+  let currentLoginUser: UserResponse;
+
+  if (currentLoginUserString !== null) {
+    currentLoginUser = JSON.parse(currentLoginUserString);
+    return Promise.resolve(currentLoginUser);
+  }
+
+  return Promise.reject(new Error("No user is currently logged in."));
+};

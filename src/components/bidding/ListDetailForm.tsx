@@ -28,7 +28,8 @@ interface ListingDetailFormProps {
 export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
 
   const [formMyBiddingPrice, setFormMyBiddingPrice] = useState("");
-  const {createBiddingAPI} = useBiddingStore();  
+  //const [previousBidID, setPreviousBidID] = useState("");
+  const {createBiddingAPI, getLatestBidonListingAPI,latestBidsResponseFromAPI, previousBidID} = useBiddingStore();  
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -37,8 +38,9 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
     try {
       setIsLoading(true);
       console.log("Agent ID from listingFromAPI: ", listingFromAPI.AgentId);
-      //need endpoint given uername, can get user id (check if buyer id points to agent or point to actual buyer)
-      await createBiddingAPI(listingFromAPI.AgentId, formMyBiddingPrice, listingFromAPI.AgentId, listingFromAPI.Id, undefined);
+      await getLatestBidonListingAPI(listingFromAPI.Id);
+      console.log("Previous Bid ID: ", previousBidID);
+      await createBiddingAPI(listingFromAPI.AgentId, formMyBiddingPrice, listingFromAPI.AgentId, listingFromAPI.Id, latestBidsResponseFromAPI?.ID);
 /*      await onSubmit({
         formPropertyAddress: formAssetPropertyAddress,
         formPropertyCity: formPropertyCity,

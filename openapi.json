@@ -47,7 +47,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -57,7 +58,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -67,7 +69,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -77,7 +80,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -114,7 +118,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -124,7 +129,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -134,7 +140,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -144,7 +151,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -152,7 +160,7 @@
                 }
             }
         },
-        "/agent/representations": {
+        "/agent/representation": {
             "get": {
                 "security": [
                     {
@@ -190,7 +198,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/server.RepresentationsWithNullableTime"
+                                        "$ref": "#/components/schemas/server.RepresentationData"
                                     }
                                 }
                             }
@@ -201,7 +209,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -211,7 +220,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -221,7 +231,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -258,7 +269,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -268,7 +280,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -278,7 +291,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -288,7 +302,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": true
                                 }
                             }
                         }
@@ -402,6 +417,11 @@
         },
         "/bidding/listBids": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "listing all bids belonging to a given buyer",
                 "tags": [
                     "bidding"
@@ -455,13 +475,13 @@
                 }
             }
         },
-        "/bidding/listBidsOnListing": {
+        "/bidding/listLatestBidOnListing": {
             "post": {
-                "description": "listing all bids with a given listing",
+                "description": "listing most recent bid on a listing",
                 "tags": [
                     "bidding"
                 ],
-                "summary": "given listing, list all bids with that as the listing",
+                "summary": "given listing, list most recent bid on a listing",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -470,19 +490,16 @@
                             }
                         }
                     },
-                    "description": "listing all bids that have a specific listing",
+                    "description": "listing most recent bid on a specific listing",
                     "required": true
                 },
                 "responses": {
                     "200": {
-                        "description": "list of bids",
+                        "description": "bid",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/server.listBidResponse"
-                                    }
+                                    "$ref": "#/components/schemas/server.listBidResponse"
                                 }
                             }
                         }
@@ -526,6 +543,63 @@
                         }
                     },
                     "description": "reject a bid",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/bidding/updateBidStatus": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "update a bid's status",
+                "tags": [
+                    "bidding"
+                ],
+                "summary": "update a bid's status",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.updateBidStatusRequest"
+                            }
+                        }
+                    },
+                    "description": "update a bid status",
                     "required": true
                 },
                 "responses": {
@@ -877,13 +951,31 @@
                     }
                 }
             },
-            "server.RepresentationsWithNullableTime": {
+            "server.RepresentationData": {
                 "type": "object",
                 "properties": {
+                    "agent_first_name": {
+                        "type": "string"
+                    },
                     "agent_id": {
                         "type": "integer"
                     },
-                    "created_at": {
+                    "agent_last_name": {
+                        "type": "string"
+                    },
+                    "agent_username": {
+                        "type": "string"
+                    },
+                    "client_first_name": {
+                        "type": "string"
+                    },
+                    "client_id": {
+                        "type": "integer"
+                    },
+                    "client_last_name": {
+                        "type": "string"
+                    },
+                    "client_username": {
                         "type": "string"
                     },
                     "end_date": {
@@ -895,7 +987,10 @@
                     "is_active": {
                         "type": "boolean"
                     },
-                    "signed_date": {
+                    "requested_at": {
+                        "type": "string"
+                    },
+                    "signed_at": {
                         "$ref": "#/components/schemas/server.NullableTime"
                     },
                     "start_date": {
@@ -903,12 +998,6 @@
                     },
                     "status": {
                         "type": "string"
-                    },
-                    "updated_at": {
-                        "type": "string"
-                    },
-                    "user_id": {
-                        "type": "integer"
                     }
                 }
             },
@@ -1088,13 +1177,9 @@
             "server.listBidsRequest": {
                 "type": "object",
                 "required": [
-                    "BuyerID",
                     "Username"
                 ],
                 "properties": {
-                    "BuyerID": {
-                        "type": "integer"
-                    },
                     "Username": {
                         "type": "string"
                     }
@@ -1231,6 +1316,21 @@
                         "type": "string"
                     },
                     "start_date": {
+                        "type": "string"
+                    }
+                }
+            },
+            "server.updateBidStatusRequest": {
+                "type": "object",
+                "required": [
+                    "BidId",
+                    "NewStatus"
+                ],
+                "properties": {
+                    "BidId": {
+                        "type": "integer"
+                    },
+                    "NewStatus": {
                         "type": "string"
                     }
                 }

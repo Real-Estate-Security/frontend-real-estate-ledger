@@ -53,6 +53,17 @@ export default function NavHeader() {
             </span>
           </Link>
         </div>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/frontend-real-estate-ledger/view-bids"
+            className="flex items-center gap-2"
+          >
+            <House className="h-6 w-6 text-white" />
+            <span className="font-bold text-xl hidden sm:inline-block text-white">
+              List Bid
+            </span>
+          </Link>
+        </div>        
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {user ? (

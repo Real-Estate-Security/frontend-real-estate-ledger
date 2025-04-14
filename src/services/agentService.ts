@@ -4,7 +4,7 @@ import type { components } from "@/api/types/api-types";
 const API_BASE_URL = "http://localhost:8000";
 
 export type Representation =
-  components["schemas"]["server.RepresentationsWithNullableTime"];
+  components["schemas"]["server.RepresentationData"];
 
 export const requestRepresentation = async (
   username: string,
