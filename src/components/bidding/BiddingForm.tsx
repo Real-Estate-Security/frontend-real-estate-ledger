@@ -15,7 +15,7 @@ export function BiddingForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   
-  const [isAssetDetailVisible, setIsAssetDetailVisible] = useState(false); // State to control visibility
+  const [isAssetDetailVisible, setIsAssetDetailVisible] = useState(false); 
 
   const handleGetAssetById = async () => {
     console.log("handleGetAssetById-> Asset ID:", formPropertyId);
@@ -23,7 +23,7 @@ export function BiddingForm() {
       setIsLoading(true);
       await getPropertyByIDAPI(Number(formPropertyId), "test123");
       await getListingByPropertyIDApi(Number(formPropertyId), "test123");
-      setIsAssetDetailVisible(true); // Show the asset detail form after successful submission      
+      setIsAssetDetailVisible(true);    
     } catch (error) {
       console.error("Bidding submission error:", error);
       setError("Failed to submit bidding. Please try again.");
@@ -64,10 +64,8 @@ export function BiddingForm() {
             </Button>
             </div>            
           </div>
-          {/* Error message */}
           {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
         </div>
-        {/* Conditionally render the asset detail form */}
         {isAssetDetailVisible && (
           <div id="assetDetailFormId">
             {propertyFromAPI && <PropertyDetailForm propertyFromAPI={propertyFromAPI} />}

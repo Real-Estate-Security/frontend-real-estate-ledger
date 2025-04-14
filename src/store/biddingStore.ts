@@ -62,9 +62,10 @@ interface CreateBiddingState {
   createBiddingResponseFromAPI: CreateBiddingResponseFromAPI | null;
   listBidsResponseFromAPI: ListBidsResponseFromAPI[] | null;
   latestBidsResponseFromAPI: LatestBidsResponseFromAPI | null;
+  
 
   rejectBidAPI: (ID: number) => Promise<number>;
-  getLatestBidonListingAPI: (ID: number) => Promise<void>;
+  getLatestBidonListingAPI: (ID: number) => Promise<LatestBidsResponseFromAPI | undefined>;
   createBiddingAPI: (agentId: number, amount: string, buyerId: number, listingId:number, previousBidId?:number) => Promise<void>;
   getBidingListByBuyerIdAPI: (buyerId:number) => Promise<void>;
   updateBidStatusAPI: (biddingId:number, newBiddingStatus: string) => Promise<number>;
@@ -166,11 +167,12 @@ export const useBiddingStore = create<CreateBiddingState>((set) => ({
           Status: response.Status
         };
         set({ latestBidsResponseFromAPI });
-
+        
         // Set the previousBidID
         set({ previousBidID: response.ID });
         console.log("biddingStore:PreviousBidID Set response= " + response.ID.toString());
         console.log("biddingStore:getLatestBidonListing response= " + JSON.stringify(response));
+        return latestBidsResponseFromAPI;
       }
     } catch (error) {
       console.error("Error getting latest bid:", error);

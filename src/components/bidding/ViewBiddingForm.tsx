@@ -13,8 +13,8 @@ export function ViewBiddingForm() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        await getBidingListByBuyerIdAPI(1); // Assuming buyerId is 1 for this example
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated delay
+        await getBidingListByBuyerIdAPI(1); // This does actually get the logged in user in store I just hardcoded it to 1 for now
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
       } catch (error) {
         console.error("Failed to load bidding table data:", error);
         setErrorForUI("Failed to load bidding table data.")

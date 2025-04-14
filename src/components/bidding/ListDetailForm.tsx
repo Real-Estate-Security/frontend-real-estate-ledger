@@ -28,8 +28,7 @@ interface ListingDetailFormProps {
 export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
 
   const [formMyBiddingPrice, setFormMyBiddingPrice] = useState("");
-  //const [previousBidID, setPreviousBidID] = useState("");
-  const {createBiddingAPI, getLatestBidonListingAPI,latestBidsResponseFromAPI, previousBidID} = useBiddingStore();  
+  const {createBiddingAPI, getLatestBidonListingAPI} = useBiddingStore();  
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -39,14 +38,8 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
       setIsLoading(true);
       console.log("Agent ID from listingFromAPI: ", listingFromAPI.AgentId);
       await getLatestBidonListingAPI(listingFromAPI.Id);
-      console.log("Previous Bid ID: ", previousBidID);
-      await createBiddingAPI(listingFromAPI.AgentId, formMyBiddingPrice, listingFromAPI.AgentId, listingFromAPI.Id, latestBidsResponseFromAPI?.ID);
-/*      await onSubmit({
-        formPropertyAddress: formAssetPropertyAddress,
-        formPropertyCity: formPropertyCity,
-        formPropertyOwner: formPropertyOwner,
-        formPropertyState: formPropertyState
-      });*/
+      const latestBid = await getLatestBidonListingAPI(listingFromAPI.Id);
+      await createBiddingAPI(listingFromAPI.AgentId, formMyBiddingPrice, listingFromAPI.AgentId, listingFromAPI.Id, latestBid?.ID);
     } catch (error) {
       console.error("Bidding submission error:", error);
       setError("Failed to submit bidding. Please try again.");
