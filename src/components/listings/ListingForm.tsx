@@ -64,10 +64,16 @@ export function ListingForm({ onSubmit }: ListingFormProps) {
     const fname = agentfirstName;
     const lname = agentlastName;
 
-    if ((fname == "") || (lname == "")) {
-        setError("");
-        return true;
+    // if ((fname == "") || (lname == "")) {
+    //     setError("");
+    //     return true;
+    // }
+    if (!fname || !lname) {
+      setError("Agent name is required.");
+      return false;
     }
+    setError("");
+    return true;
 
   };
 
