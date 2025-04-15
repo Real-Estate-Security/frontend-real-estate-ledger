@@ -60,7 +60,6 @@ import {
     
         const data = await res.json();
         console.log("Successfully created listing:", data);
-        alert("Listing created successfully!");
     
         // Navigate after success
         navigate("/frontend-real-estate-ledger/listings");

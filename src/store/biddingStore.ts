@@ -68,7 +68,7 @@ interface CreateBiddingState {
   getLatestBidonListingAPI: (ID: number) => Promise<LatestBidsResponseFromAPI | undefined>;
   createBiddingAPI: (agentId: number, amount: string, buyerId: number, listingId:number, previousBidId?:number) => Promise<void>;
   getBidingListByBuyerIdAPI: (buyerId:number) => Promise<void>;
-  updateBidStatusAPI: (biddingId:number, newBiddingStatus: string) => Promise<number>;
+  updateBidStatusAPI: (biddingId:number, listingId: number, newBiddingStatus: string) => Promise<number>;
 }
 
 export const useBiddingStore = create<CreateBiddingState>((set) => ({
@@ -178,9 +178,9 @@ export const useBiddingStore = create<CreateBiddingState>((set) => ({
       console.error("Error getting latest bid:", error);
     }    
   }, 
-  updateBidStatusAPI: async (biddingId, newBiddingStatus) => {
+  updateBidStatusAPI: async (biddingId, listingId, newBiddingStatus) => {
     try {
-      const response = await updateBidStatus(biddingId, newBiddingStatus);
+      const response = await updateBidStatus(biddingId, listingId, newBiddingStatus);
       if (response) {
         console.log("biddingStore:rejectBidAPI response= " + response.toString());
         return response; // Ensure the response is returned as a number

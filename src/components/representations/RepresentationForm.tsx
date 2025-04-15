@@ -186,7 +186,7 @@ export function RepresentationForm({ onSuccess }: RepresentationFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-gray-700">End Date (Optional)</Label>
+            <Label className="text-gray-700">End Date</Label>
             <div className="relative">
               <Input
                 type="date"
