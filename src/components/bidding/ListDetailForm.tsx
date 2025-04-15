@@ -37,7 +37,6 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
     try {
       setIsLoading(true);
       console.log("Agent ID from listingFromAPI: ", listingFromAPI.AgentId);
-      await getLatestBidonListingAPI(listingFromAPI.Id);
       const latestBid = await getLatestBidonListingAPI(listingFromAPI.Id);
       await createBiddingAPI(listingFromAPI.AgentId, formMyBiddingPrice, listingFromAPI.AgentId, listingFromAPI.Id, latestBid?.ID);
     } catch (error) {

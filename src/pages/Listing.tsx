@@ -26,7 +26,7 @@ export default function ViewListings() {
     }
   };  
 
-  useEffect(() => {loadListings();}); //try to load listings
+  useEffect(() => {loadListings();}, []); //try to load listings
 
 
 

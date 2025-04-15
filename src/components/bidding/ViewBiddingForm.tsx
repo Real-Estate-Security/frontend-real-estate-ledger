@@ -24,7 +24,7 @@ export function ViewBiddingForm() {
     };
 
     fetchData();
-  }, );
+  }, []);
 
   useEffect(() => {
     if (listBidsResponseFromAPI) {
@@ -38,7 +38,7 @@ export function ViewBiddingForm() {
     
   }, [listBidsResponseFromAPI]);
 
-  const handleStatusChange = async (id: number, newStatus: string) => {
+  const handleStatusChange = async (id: number, listingId: number, newStatus: string) => {
     try {
       let previousStatus = null;
       setStatusMap((prev) => {
@@ -48,7 +48,7 @@ export function ViewBiddingForm() {
         return { ...prev, [id]: newStatus };
       });
 
-      await updateBidStatusAPI(id, newStatus);
+      await updateBidStatusAPI(id, listingId, newStatus);
       console.log("handleStatusChange Status changed for id=", id, ", new status =", newStatus);
       setStatusMessageForUI(
         <>
@@ -97,7 +97,7 @@ export function ViewBiddingForm() {
                       <select
                         className="border rounded px-2 py-1"
                         value={statusMap[row.ID] || ""}
-                        onChange={(e) => handleStatusChange(row.ID, e.target.value)}
+                        onChange={(e) => handleStatusChange(row.ID, row.ListingId, e.target.value)}
                       >
                         <option value="pending">Pending</option>
                         <option value="accepted">Accepted</option>
