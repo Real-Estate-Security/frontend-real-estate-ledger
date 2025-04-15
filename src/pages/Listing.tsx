@@ -26,8 +26,8 @@ export default function ViewListings() {
     navigate("/frontend-real-estate-ledger/properties");
   };
 
-  const handleBid = (propertyId: number) => {
-    navigate(`/frontend-real-estate-ledger/bidding?propertyId=${propertyId}`);
+  const handleBid = () => {
+    navigate(`/frontend-real-estate-ledger/bidding`);
   };
 
   return (
@@ -89,7 +89,7 @@ export default function ViewListings() {
                   variant="outline"
                   size="sm"
                   className="w-full"
-                  onClick={() => handleBid(listing.property_id)}
+                  onClick={() => handleBid()}
                 >
                   Bid
                 </Button>
