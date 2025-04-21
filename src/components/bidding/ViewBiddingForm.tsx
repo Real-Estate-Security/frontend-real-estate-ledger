@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { CardContent } from "@/components/ui/card";
 import { useBiddingStore } from "@/store/biddingStore";
+import { useListingStore } from "@/store/listingStore";
 
 export function ViewBiddingForm() {
   const { getBidingListByBuyerIdAPI, listBidsResponseFromAPI, updateBidStatusAPI } = useBiddingStore();  
+  const { updateAcceptedBidIdByListingIdAPI } = useListingStore();
   const [isLoading, setIsLoading] = useState(true);
   const [statusMap, setStatusMap] = useState<{ [id: number]: string }>({});
   const [errorForUI, setErrorForUI] = useState("");
@@ -13,7 +15,7 @@ export function ViewBiddingForm() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        await getBidingListByBuyerIdAPI(1); // This does actually get the logged in user in store I just hardcoded it to 1 for now
+        await getBidingListByBuyerIdAPI(1);
         await new Promise(resolve => setTimeout(resolve, 1000)); 
       } catch (error) {
         console.error("Failed to load bidding table data:", error);
@@ -22,9 +24,9 @@ export function ViewBiddingForm() {
         setIsLoading(false);
       }
     };
-
+  
     fetchData();
-  }, []);
+  }, []); 
 
   useEffect(() => {
     if (listBidsResponseFromAPI) {
@@ -38,7 +40,7 @@ export function ViewBiddingForm() {
     
   }, [listBidsResponseFromAPI]);
 
-  const handleStatusChange = async (id: number, listingId: number, newStatus: string) => {
+  const handleStatusChange = async (id: number, currentListingId: number, newStatus: string) => {
     try {
       let previousStatus = null;
       setStatusMap((prev) => {
@@ -48,8 +50,13 @@ export function ViewBiddingForm() {
         return { ...prev, [id]: newStatus };
       });
 
-      await updateBidStatusAPI(id, listingId, newStatus);
-      console.log("handleStatusChange Status changed for id=", id, ", new status =", newStatus);
+      await updateBidStatusAPI(id, newStatus);
+      console.log("handleStatusChange Status changed for id=", id, ", new status =", newStatus, ", listingId=", currentListingId);
+      if(currentListingId && newStatus == "accepted") {
+        await updateAcceptedBidIdByListingIdAPI(id, currentListingId);
+        console.log("handleStatusChange: updateAcceptedBidIdByListingIdAPI updated accepted_bit_id for listingId=", currentListingId, ", with bidId=", id);        
+      }
+
       setStatusMessageForUI(
         <>
           <span className="font-bold">Message:</span> Bidding Status Update is successful for bidding id=
@@ -67,8 +74,6 @@ export function ViewBiddingForm() {
   return (
     <CardContent className="pt-5 mx-auto w-[770px]">
       <div className="space-y-5">
-        <div className="p-6 bg-white rounded-lg shadow-md border border-gray-200">
-          <h2 className="text-xl font-semibold mb-4 text-gray-900">Bidding List Detail</h2>
           {/* Error message */}
           {errorForUI && <div className="text-red-500 text-sm mt-2">{errorForUI}</div>}
           {/* Update Status message */}
@@ -83,6 +88,7 @@ export function ViewBiddingForm() {
                   <th className="px-4 py-2">Bid Amount</th>
                   <th className="px-4 py-2">Buyer ID</th>
                   <th className="px-4 py-2">Listing ID</th>
+                  <th className="px-4 py-2">Amount</th>
                   <th className="px-4 py-2">Bid Status</th>
                 </tr>
               </thead>
@@ -93,6 +99,7 @@ export function ViewBiddingForm() {
                     <td className="px-4 py-2">{row.Amount}</td>
                     <td className="px-4 py-2">{row.BuyerId}</td>
                     <td className="px-4 py-2">{row.ListingId}</td>
+                    <td className="px-4 py-2">{row.Amount}</td>
                     <td className="px-4 py-2">
                       <select
                         className="border rounded px-2 py-1"
@@ -110,7 +117,7 @@ export function ViewBiddingForm() {
               </tbody>
             </table>
           )}
-        </div>
+        
       </div>
     </CardContent>
   );

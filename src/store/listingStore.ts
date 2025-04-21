@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import {
   getListingByPropertyID as getListingByPropertyIDApi,
+  updateAcceptedBidIdByListingId as updateAcceptedBidIdByListingIdAPI
 } from "../services/listingService";
 
 export interface ListingFromAPI {
@@ -17,33 +18,30 @@ export interface ListingFromAPI {
 interface ListingState {
   listingFromAPI: ListingFromAPI | null;
   getListingByPropertyIDApi: (propertyID: number, username: string) => Promise<void>;
+  updateAcceptedBidIdByListingIdAPI: (AcceptedBidId: number, ListId: number) => Promise<number | undefined>;
 }
 
 export const useListingStore = create<ListingState>((set) => ({
-  listingFromAPI: null, // Initialize assetFromAPI as null
-  getListingByPropertyIDApi: async (propertyID, username) => {
-/*    
-    //Mock the backend call with hard code response. 
-    //To Be disabled after the integration with backend is working. 
-    console.log("listingStore:getListingByPropertyIDAPI: propertyID=" + propertyID + ", username=" + username)
-    const listingFromAPI: ListingFromAPI = {
-      Id: 3,
-      PropertyId: 3,
-      AgentId: 3,
-      Price: 500000,
-      ListingStatus: "Active",
-      ListingDate: "Mar 1 2025",
-      Description: "Great Location and schools v2",
-      AcceptedBidId: 3,    
+  listingFromAPI: null, 
+  updateAcceptedBidIdByListingIdAPI: async (AcceptedBidId, ListId) => {
+    try {
+      const response = await updateAcceptedBidIdByListingIdAPI(AcceptedBidId, ListId);
+
+      if (response) {
+        console.log("listingStore:getListingByPropertyIDAPI: listingFromAPI=" + JSON.stringify(response));
+        return response;
+      }
+      return undefined;
+    } catch (error) {
+      console.error("Error fetching asset by ID:", error);
     }
-    set({ listingFromAPI }); // Update the state with the mapped asset
-*/    
-    // To Be enabled after the integration with backend is working. 
+  },
+
+  getListingByPropertyIDApi: async (propertyID, username) => {
     try {
       const response = await getListingByPropertyIDApi(propertyID, username);
 
       if (response) {
-        // Map the API response to the AssetFromAPI format
         const listingFromAPI: ListingFromAPI = {
           Id: response.ID,
           PropertyId: propertyID,

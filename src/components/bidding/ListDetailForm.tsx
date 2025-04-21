@@ -5,40 +5,43 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { ListingFromAPI } from "@/store/listingStore";
 import { useBiddingStore } from "@/store/biddingStore";
-
-/*
-interface ListingDetailFormProps {
-  onSubmit?: (formAssetData: {
-    formListingId: number;
-    formListingPropertyId: number;
-    formListingAgentId: number;
-    formListingPrice: number;
-    formListingStatus: string;
-    formListingDate: string;
-    formListingDescription: string;
-    formListingAcceptedBidId: number;
-  }) => void;
-}
-*/
+import { type Representation } from "@/services/agentService";
 
 interface ListingDetailFormProps {
   listingFromAPI: ListingFromAPI; 
+  representations: Representation[];
 }
 
-export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
+export function ListingDetailForm({ listingFromAPI,representations}: ListingDetailFormProps) {
 
   const [formMyBiddingPrice, setFormMyBiddingPrice] = useState("");
+  const [currentSelectedBuyerId, setCurrentSelectedBuyerId] = useState<number | null>(null);
   const {createBiddingAPI, getLatestBidonListingAPI} = useBiddingStore();  
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmitBid = async () => {
 
     try {
       setIsLoading(true);
-      console.log("Agent ID from listingFromAPI: ", listingFromAPI.AgentId);
       const latestBid = await getLatestBidonListingAPI(listingFromAPI.Id);
-      await createBiddingAPI(listingFromAPI.AgentId, formMyBiddingPrice, listingFromAPI.AgentId, listingFromAPI.Id, latestBid?.ID);
+
+      if (latestBid) {
+        console.log("handleSubmitBid: listingFromAPI: listingFromAPI.AgentId=", listingFromAPI.AgentId,
+        ", formMyBiddingPrice=", formMyBiddingPrice,
+        ", currentSelectedBuyerId=", currentSelectedBuyerId,
+        ", listingFromAPI.Id=", listingFromAPI.Id,
+        ", Current Agent ID", representations?.at(0)?.agent_id,
+        ", latestBid.ID=", latestBid.ID);     
+        await createBiddingAPI(representations?.at(0)?.agent_id ?? 0, formMyBiddingPrice, currentSelectedBuyerId ?? 0, listingFromAPI.Id, latestBid.ID);
+      } else {
+        console.log("handleSubmitBid without latestBid: listingFromAPI: listingFromAPI.AgentId=", listingFromAPI.AgentId,
+        ", formMyBiddingPrice=", formMyBiddingPrice,
+        ", currentSelectedBuyerId=", currentSelectedBuyerId,
+        ", Current Agent ID", representations?.at(0)?.agent_id,
+        ", listingFromAPI.Id=", listingFromAPI.Id);  
+        await createBiddingAPI(representations?.at(0)?.agent_id ?? 0, formMyBiddingPrice, currentSelectedBuyerId ?? 0, listingFromAPI.Id, undefined);
+      }
     } catch (error) {
       console.error("Bidding submission error:", error);
       setError("Failed to submit bidding. Please try again.");
@@ -101,7 +104,25 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
                     onChange={(e) => setFormMyBiddingPrice(e.target.value)}
                     className="pl-10 bg-gray-50 focus:bg-white transition-colors"
                 />      
-            </div>                           
+            </div>
+            {/* Dropdown for representations */}
+            <div className="space-y-2">
+              <Label htmlFor="formRepresentationDropdown" className="font-medium">
+                Select a Representation
+              </Label>
+              <select
+                  id="formRepresentationDropdown"
+                  className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onChange={(e) => setCurrentSelectedBuyerId(Number(e.target.value))}
+                >
+                  <option value="">-- Select Representation --</option>
+                  {[...new Map(representations.map(r => [r.client_id, r])).values()].map((representation) => (
+                    <option key={representation.client_id} value={representation.client_id}>
+                      {representation.client_first_name} {representation.client_last_name} - {representation.client_id}
+                    </option>
+                  ))}
+                </select>
+            </div>                                                   
           {/* Error message */}
           {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
         </div>
@@ -109,7 +130,7 @@ export function ListingDetailForm({ listingFromAPI }: ListingDetailFormProps) {
       <CardFooter className="flex flex-col space-y-4 pt-2 pb-6">
         <Button
           className="w-full h-11 font-medium transition-all hover:shadow-md"
-          onClick={handleSubmit}
+          onClick={handleSubmitBid}
           disabled={
             isLoading ||
             !formMyBiddingPrice

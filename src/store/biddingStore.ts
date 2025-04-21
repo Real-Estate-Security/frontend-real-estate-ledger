@@ -68,7 +68,7 @@ interface CreateBiddingState {
   getLatestBidonListingAPI: (ID: number) => Promise<LatestBidsResponseFromAPI | undefined>;
   createBiddingAPI: (agentId: number, amount: string, buyerId: number, listingId:number, previousBidId?:number) => Promise<void>;
   getBidingListByBuyerIdAPI: (buyerId:number) => Promise<void>;
-  updateBidStatusAPI: (biddingId:number, listingId: number, newBiddingStatus: string) => Promise<number>;
+  updateBidStatusAPI: (biddingId:number, newBiddingStatus: string) => Promise<number>;
 }
 
 export const useBiddingStore = create<CreateBiddingState>((set) => ({
@@ -168,7 +168,6 @@ export const useBiddingStore = create<CreateBiddingState>((set) => ({
         };
         set({ latestBidsResponseFromAPI });
         
-        // Set the previousBidID
         set({ previousBidID: response.ID });
         console.log("biddingStore:PreviousBidID Set response= " + response.ID.toString());
         console.log("biddingStore:getLatestBidonListing response= " + JSON.stringify(response));
@@ -178,17 +177,17 @@ export const useBiddingStore = create<CreateBiddingState>((set) => ({
       console.error("Error getting latest bid:", error);
     }    
   }, 
-  updateBidStatusAPI: async (biddingId, listingId, newBiddingStatus) => {
+  updateBidStatusAPI: async (biddingId, newBiddingStatus) => {
     try {
-      const response = await updateBidStatus(biddingId, listingId, newBiddingStatus);
+      const response = await updateBidStatus(biddingId, newBiddingStatus);
       if (response) {
         console.log("biddingStore:rejectBidAPI response= " + response.toString());
-        return response; // Ensure the response is returned as a number
+        return response; 
       }
       throw new Error("No response received from rejectBid");
     } catch (error) {
       console.error("Error rejecting bid:", error);
-      throw error; // Re-throw the error to maintain the Promise<number> contract
+      throw error; 
     }
   }
 

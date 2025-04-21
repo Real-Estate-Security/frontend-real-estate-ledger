@@ -774,6 +774,63 @@
                 }
             }
         },
+        "/listing/updateAcceptedBidIdByListingId": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "update accepted bid id for a given listing id",
+                "tags": [
+                    "listing"
+                ],
+                "summary": "update accepted bid id for a given listing id",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/server.updateAcceptedBidIdByListingIdRequest"
+                            }
+                        }
+                    },
+                    "description": "update accepted bid id for a given listing id",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/properties": {
             "post": {
                 "description": "creating a listing for a property",
@@ -1520,14 +1577,33 @@
                     }
                 }
             },
+            "server.updateAcceptedBidIdByListingIdRequest": {
+                "type": "object",
+                "required": [
+                    "AcceptedBidId",
+                    "ListId"
+                ],
+                "properties": {
+                    "AcceptedBidId": {
+                        "type": "integer"
+                    },
+                    "ListId": {
+                        "type": "integer"
+                    }
+                }
+            },
             "server.updateBidStatusRequest": {
                 "type": "object",
                 "required": [
                     "BidId",
+                    "ListingID",
                     "NewStatus"
                 ],
                 "properties": {
                     "BidId": {
+                        "type": "integer"
+                    },
+                    "ListingID": {
                         "type": "integer"
                     },
                     "NewStatus": {

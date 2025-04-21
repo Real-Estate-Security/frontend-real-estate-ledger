@@ -883,6 +883,68 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/listing/updateAcceptedBidIdByListingId": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * update accepted bid id for a given listing id
+         * @description update accepted bid id for a given listing id
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description update accepted bid id for a given listing id */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["server.updateAcceptedBidIdByListingIdRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/properties": {
         parameters: {
             query?: never;
@@ -1328,8 +1390,13 @@ export interface components {
             end_date: string;
             start_date: string;
         };
+        "server.updateAcceptedBidIdByListingIdRequest": {
+            AcceptedBidId: number;
+            ListId: number;
+        };
         "server.updateBidStatusRequest": {
             BidId: number;
+            ListingID: number;
             NewStatus: string;
         };
         "server.userMeResponse": {
