@@ -76,7 +76,6 @@ export const getLatestBidOnListing = async (
 // updateBidStatus function
 export const updateBidStatus = async (
   BidID: number,
-  ListingID: number,
   NewStatus: string
 ): Promise<number> => {
   console.log("biddingService:updateBidStatus: Bid ID =" + BidID + ", newStatus=" + NewStatus)
@@ -84,7 +83,6 @@ export const updateBidStatus = async (
     `${API_BASE_URL}/bidding/updateBidStatus`,
     {
       BidID,
-      ListingID,
       NewStatus
     }
   );

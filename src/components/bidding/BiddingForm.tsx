@@ -7,6 +7,11 @@ import { PropertyDetailForm } from "./PropertyDetailForm";
 import { ListingDetailForm } from "./ListDetailForm";
 import { usePropertyStore } from "@/store/propertyStore";
 import { useListingStore } from "@/store/listingStore";
+import {
+  getRepresentations,
+  type Representation,
+} from "@/services/agentService";
+import { useAuthStore } from "@/store/authStore";
 
 export function BiddingForm() {
   const [formPropertyId, setFormPropertyId] = useState("");
@@ -14,16 +19,24 @@ export function BiddingForm() {
   const {getListingByPropertyIDApi, listingFromAPI} = useListingStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  
+  const { user } = useAuthStore();
+  const [representations, setRepresentations] = useState<Representation[]>([]);
+  const [currentAgentID, setCurrentAgentID] = useState<number | null>(null);
+
   const [isAssetDetailVisible, setIsAssetDetailVisible] = useState(false); 
 
   const handleGetAssetById = async () => {
     console.log("handleGetAssetById-> Asset ID:", formPropertyId);
     try {
       setIsLoading(true);
-      await getPropertyByIDAPI(Number(formPropertyId), "test123");
-      await getListingByPropertyIDApi(Number(formPropertyId), "test123");
-      setIsAssetDetailVisible(true);    
+      await getPropertyByIDAPI(Number(formPropertyId), user?.username || "");
+      await getListingByPropertyIDApi(Number(formPropertyId), user?.username || "");
+      const data = await getRepresentations();
+      setRepresentations(data);    
+      console.log("Current Data:", JSON.stringify(data));  
+      setIsAssetDetailVisible(true);
+      setCurrentAgentID(data?.at(0)?.agent_id || null);  
+      console.log("Current Agent Identifier:", currentAgentID);  
     } catch (error) {
       console.error("Bidding submission error:", error);
       setError("Failed to submit bidding. Please try again.");
@@ -69,7 +82,7 @@ export function BiddingForm() {
         {isAssetDetailVisible && (
           <div id="assetDetailFormId">
             {propertyFromAPI && <PropertyDetailForm propertyFromAPI={propertyFromAPI} />}
-            {listingFromAPI && <ListingDetailForm listingFromAPI={listingFromAPI}/>}
+            {listingFromAPI && <ListingDetailForm listingFromAPI={listingFromAPI} representations={representations} />}
           </div>
         )}
       </CardContent>
