@@ -18,11 +18,11 @@ export interface ListingFromAPI {
 interface ListingState {
   listingFromAPI: ListingFromAPI | null;
   getListingByPropertyIDApi: (propertyID: number, username: string) => Promise<void>;
-  updateAcceptedBidIdByListingIdAPI: (AcceptedBidId: number, ListId: number) => Promise<Number | undefined>;
+  updateAcceptedBidIdByListingIdAPI: (AcceptedBidId: number, ListId: number) => Promise<number | undefined>;
 }
 
 export const useListingStore = create<ListingState>((set) => ({
-  listingFromAPI: null, // Initialize assetFromAPI as null
+  listingFromAPI: null, 
   updateAcceptedBidIdByListingIdAPI: async (AcceptedBidId, ListId) => {
     try {
       const response = await updateAcceptedBidIdByListingIdAPI(AcceptedBidId, ListId);
@@ -42,7 +42,6 @@ export const useListingStore = create<ListingState>((set) => ({
       const response = await getListingByPropertyIDApi(propertyID, username);
 
       if (response) {
-        // Map the API response to the AssetFromAPI format
         const listingFromAPI: ListingFromAPI = {
           Id: response.ID,
           PropertyId: propertyID,

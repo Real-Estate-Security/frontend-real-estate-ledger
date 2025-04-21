@@ -168,7 +168,6 @@ export const useBiddingStore = create<CreateBiddingState>((set) => ({
         };
         set({ latestBidsResponseFromAPI });
         
-        // Set the previousBidID
         set({ previousBidID: response.ID });
         console.log("biddingStore:PreviousBidID Set response= " + response.ID.toString());
         console.log("biddingStore:getLatestBidonListing response= " + JSON.stringify(response));
@@ -183,12 +182,12 @@ export const useBiddingStore = create<CreateBiddingState>((set) => ({
       const response = await updateBidStatus(biddingId, newBiddingStatus);
       if (response) {
         console.log("biddingStore:rejectBidAPI response= " + response.toString());
-        return response; // Ensure the response is returned as a number
+        return response; 
       }
       throw new Error("No response received from rejectBid");
     } catch (error) {
       console.error("Error rejecting bid:", error);
-      throw error; // Re-throw the error to maintain the Promise<number> contract
+      throw error; 
     }
   }
 

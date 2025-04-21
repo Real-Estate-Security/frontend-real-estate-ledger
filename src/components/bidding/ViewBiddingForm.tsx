@@ -74,8 +74,6 @@ export function ViewBiddingForm() {
   return (
     <CardContent className="pt-5 mx-auto w-[770px]">
       <div className="space-y-5">
-        <div className="p-6 bg-white rounded-lg shadow-md border border-gray-200">
-          <h2 className="text-xl font-semibold mb-4 text-gray-900">Bidding List Detail</h2>
           {/* Error message */}
           {errorForUI && <div className="text-red-500 text-sm mt-2">{errorForUI}</div>}
           {/* Update Status message */}
@@ -90,6 +88,7 @@ export function ViewBiddingForm() {
                   <th className="px-4 py-2">Bid Amount</th>
                   <th className="px-4 py-2">Buyer ID</th>
                   <th className="px-4 py-2">Listing ID</th>
+                  <th className="px-4 py-2">Amount</th>
                   <th className="px-4 py-2">Bid Status</th>
                 </tr>
               </thead>
@@ -100,6 +99,7 @@ export function ViewBiddingForm() {
                     <td className="px-4 py-2">{row.Amount}</td>
                     <td className="px-4 py-2">{row.BuyerId}</td>
                     <td className="px-4 py-2">{row.ListingId}</td>
+                    <td className="px-4 py-2">{row.Amount}</td>
                     <td className="px-4 py-2">
                       <select
                         className="border rounded px-2 py-1"
@@ -117,7 +117,7 @@ export function ViewBiddingForm() {
               </tbody>
             </table>
           )}
-        </div>
+        
       </div>
     </CardContent>
   );

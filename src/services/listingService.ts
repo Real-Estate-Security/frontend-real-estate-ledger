@@ -24,8 +24,8 @@ export const getListingByPropertyID = async (
 export const updateAcceptedBidIdByListingId = async (
   AcceptedBidId: number,
   ListId: number
-): Promise<Number> => {
-  const response = await axios.post<Number>(
+): Promise<number> => {
+  const response = await axios.post<number>(
     `${API_BASE_URL}/listing/updateAcceptedBidIdByListingId`,
     {
       AcceptedBidId,
